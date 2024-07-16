@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App(){
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+
+  return(
+    <div className="h-screen flex items-center justify-center">
+      <div className="max-w-3xl w-full px-6 text-center space-y-10">
+        <p className="text-zinc-300 text-lg">Convide seus amigos e planeje sua próxima viagem!</p>
+        
+        <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-4 space-x-5 shadow-shape">
+          <div className="space-x-5 flex items-center">
+            <div className="flex items-center space-x-2">
+              <MapPin className=""/>
+              <input type="text"
+                    name=""
+                    id=""
+                    className="bg-transparent ml-6 placeholder-zinc-400 text-lg"
+                    placeholder="Para onde você vai?"/>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Calendar className=""/>
+              <input type="text"
+                    name=""
+                    id=""
+                    className="bg-transparent ml-6 placeholder-zinc-400 text-lg"
+                    placeholder="Quando?"/>
+            </div>
+          </div>
+
+          <div className="bg-lime-300 flex items-center text-lime-950 text-center px-5 h-9 space-x-2 rounded-lg">
+            <button className="">Continuar</button>
+            <ArrowRight/>
+          </div>
+        </div>
+        
+        <p className="text-zinc-500 text-sm">
+        Ao planejar sua viagem pela plann.er você automaticamente concorda <br/>
+        com nossos <a href="#" className="text-zinc-300 underline">termos de uso</a> e <a href="#" className="text-zinc-300 underline">políticas de privacidade</a>.
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
-
-export default App
