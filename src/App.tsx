@@ -7,7 +7,10 @@ export function App(){
   return(
     <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
       <div className="max-w-3xl w-full text-center space-y-10">
-        <p className="text-zinc-300 text-lg">Convide seus amigos e planeje sua próxima viagem!</p>
+        <div className="flex items-center justify-center flex-col gap-2">
+          <img src="../public/logo.svg" alt="Logo escrita plann.er" className="" />
+          <p className="text-zinc-300 text-lg">Convide seus amigos e planeje sua próxima viagem!</p>
+        </div>
         
         <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
             <div className="flex items-center gap-2">
