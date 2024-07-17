@@ -5,33 +5,33 @@ export function App(){
 
 
   return(
-    <div className="h-screen flex items-center justify-center">
-      <div className="max-w-3xl w-full px-6 text-center space-y-10">
+    <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
+      <div className="max-w-3xl w-full text-center space-y-10">
         <p className="text-zinc-300 text-lg">Convide seus amigos e planeje sua próxima viagem!</p>
         
-        <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-4 space-x-5 shadow-shape">
-          <div className="space-x-5 flex items-center">
-            <div className="flex items-center space-x-2">
-              <MapPin className=""/>
+        <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
+            <div className="flex items-center gap-2">
+              <MapPin className="size-5 text-zinc-400"/>
               <input type="text"
                     name=""
                     id=""
-                    className="bg-transparent ml-6 placeholder-zinc-400 text-lg"
+                    className="bg-transparent placeholder-zinc-400 text-lg outline-none"
                     placeholder="Para onde você vai?"/>
             </div>
-            <div className="flex items-center space-x-2">
-              <Calendar className=""/>
+            <div className="flex items-center gap-2">
+              <Calendar className="size-5 text-zinc-400"/>
               <input type="text"
                     name=""
                     id=""
-                    className="bg-transparent ml-6 placeholder-zinc-400 text-lg"
+                    className="bg-transparent placeholder-zinc-400 text-lg outline-none"
                     placeholder="Quando?"/>
             </div>
-          </div>
 
-          <div className="bg-lime-300 flex items-center text-lime-950 text-center px-5 h-9 space-x-2 rounded-lg">
+          <div className="w-px h-6 bg-zinc-800"/>
+
+          <div className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400">
             <button className="">Continuar</button>
-            <ArrowRight/>
+            <ArrowRight className="size-5"/>
           </div>
         </div>
         
