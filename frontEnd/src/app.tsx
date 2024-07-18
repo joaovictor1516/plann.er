@@ -38,15 +38,15 @@ export function App(){
               </div>
             <div className="w-px h-6 bg-zinc-800"/>
             { isGuestsInputOpen ? (
-             <div className="bg-zinc-800 text-zinc-200 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium">
-                <button className="w-40">Alterar local/data</button>
-                <Settings2 className="size-5"/>
-              </div>
+                <button className="bg-zinc-800 text-zinc-200 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-zinc-700 w-56">
+                  Alterar local/data
+                  <Settings2 className="size-5"/>
+                </button>
               ):(
-              <div className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400">
-                <button className="" onClick={showGuestsInput}>Continuar</button>
-                <ArrowRight className="size-5"/>
-              </div>
+                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={showGuestsInput}>
+                  Continuar
+                  <ArrowRight className="size-5"/>
+                </button>
             )}
           </div>
           {isGuestsInputOpen && (
@@ -59,10 +59,10 @@ export function App(){
                         className="bg-transparent placeholder-zinc-400 text-lg outline-none flex-1"
                         placeholder="Quem estará na viagem?"/>
                 </div>
-                <div className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-52">
-                  <button className="" onClick={showGuestsInput}>Confirmar viagem</button>
+                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={showGuestsInput}>
+                  Confirmar viagem
                   <ArrowRight className="size-5"/>
-                </div>
+                </button>
               </div>
             )}
         </div>
