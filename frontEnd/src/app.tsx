@@ -38,20 +38,22 @@ export function App(){
 
           <div className="w-px h-6 bg-zinc-800"/>
 
-          { isGuestsInputOpen ?
+          { isGuestsInputOpen ? (
            <div className="bg-zinc-800 text-zinc-200 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium">
               <button className="w-48">Alterar local/data</button>
               <Settings2 className="size-5"/>
-            </div> 
-            :
+            </div>
+
+            ):(
+
             <div className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400">
               <button className="" onClick={showGuestsInput}>Continuar</button>
               <ArrowRight className="size-5"/>
             </div>
-          }
+          )}
         </div>
 
-        {isGuestsInputOpen ?
+        {isGuestsInputOpen && (
             <div className="flex items-center justify-between bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
               <div className="flex items-center gap-2 w-[460px] text-zinc-400">
                 <UserRoundPlus className="size-5 "/>
@@ -66,9 +68,8 @@ export function App(){
                 <button className="" onClick={showGuestsInput}>Confirmar viagem</button>
                 <ArrowRight className="size-5"/>
               </div>
-            </div> :
-            <></>
-        }
+            </div>
+          )}
         
         <p className="text-zinc-500 text-sm">
         Ao planejar sua viagem pela plann.er você automaticamente concorda <br/>
