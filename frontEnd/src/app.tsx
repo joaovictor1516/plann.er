@@ -1,10 +1,12 @@
 import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export function App(){
-  const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
-  const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false);
-
+  const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
+  const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([
+    "jvcampos531@gmail.com"
+  ]);
   function openGuestsInput(){
     setIsGuestsInputOpen(true);
   }
@@ -21,6 +23,23 @@ export function App(){
     setIsGuestsModalOpen(false);
   }
 
+  function insertEmail(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const email = data.get("emailInput")?.toString();
+
+    if(email){
+      setEmailsToInvite([...emailsToInvite, email])
+    }
+  }
+
+  function removeEmail(email: string){
+    const index = emailsToInvite.indexOf(email);
+    emailsToInvite.splice(index, 1);
+    setEmailsToInvite([...emailsToInvite])
+  }
+
   return(
     <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
       <div className="max-w-3xl w-full text-center space-y-10">
@@ -34,8 +53,8 @@ export function App(){
               <div className="flex items-center gap-2">
                 <MapPin className="size-5 text-zinc-400"/>
                 <input type="text"
-                      name=""
-                      id=""
+                      name="locationInput"
+                      id="locationInpu"
                       disabled={isGuestsInputOpen}
                       className="bg-transparent placeholder-zinc-400 text-lg outline-none"
                       placeholder="Para onde você vai?"/>
@@ -43,8 +62,8 @@ export function App(){
               <div className="flex items-center gap-2">
                 <Calendar className="size-5 text-zinc-400"/>
                 <input type="text"
-                      name=""
-                      id=""
+                      name="dateInput"
+                      id="dateInput"
                       disabled={isGuestsInputOpen}
                       className="bg-transparent placeholder-zinc-400 text-lg outline-none"
                       placeholder="Quando?"/>
@@ -80,41 +99,56 @@ export function App(){
 
         {isGuestsModalOpen && (
           <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-            <div className="flex flex-col items-center bg-zinc-900 w-[640px] h-80 rounded-xl text-zinc-400 px-6 py-5 gap-5">
-              <div className="flex justify-center flex-col">
-                <div className="flex justify-between w-full">
-                  <span className="text-zinc-50 text-lg">
+            <div className="flex flex-col items-center bg-zinc-900 w-[640px] rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">
+              <div className="flex flex-col justify-center w-full gap-2">
+                <div className="flex justify-between">
+                  <h2 className="text-zinc-50 text-lg font-semibold">
                     Selecionar convidados
-                  </span>
+                  </h2>
                   <button>
                     <X className="size-5" onClick={closeGuestsModal}/>
                   </button>
                 </div>
 
-                <p className="">Os convidados irão receber e-mails para confirmar a participação na viagem.</p>
+                <p className="text-left text-sm">
+                  Os convidados irão receber e-mails para confirmar a participação na viagem.
+                </p>
               </div>
 
-              <div className="w-full">
-                
+              <div className="flex flex-wrap gap-2">
+                {
+                  emailsToInvite.map((email) => {
+                    return(
+                      <div key={emailsToInvite.indexOf(email)} className="flex gap-1 p-2 bg-zinc-800 rounded">
+                        <span className="text-zinc-300">
+                          {email}
+                        </span>
+                        <button className="" onClick={() => removeEmail(email)}>  
+                          <X className="size-4 text-zinc-400"/>
+                        </button>
+                      </div>
+                    )
+                  })
+                }
               </div>
 
               <div className="w-full h-px bg-zinc-800"/>
               
-              <div className="flex items-center justify-between bg-zinc-950 w-full rounded-lg h-14 px-3 py-2">
+              <form onSubmit={insertEmail} className="flex items-center justify-between bg-zinc-950 border border-zinc-800 w-full rounded-lg px-3 py-2">
                 <div className="flex items-center gap-2">
                   <AtSign className="size-5 text-zinc-400"/>
-                  <input type="text"
-                        name=""
-                        id=""
+                  <input type="email"
+                        name="emailInput"
+                        id="emailInput"
                         className="bg-transparent placeholder-zinc-400 text-lg outline-none w-64"
                         placeholder="Digite o e-mail do convidado"/>
                 </div>
 
-                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400">
+                <button type="submit" className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400">
                   Convidar
                   <Plus className="size-5"/>
                 </button>
-              </div>
+              </form>
 
             </div>
           </div>
