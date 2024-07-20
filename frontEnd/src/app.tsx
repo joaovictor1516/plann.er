@@ -1,12 +1,11 @@
 import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
-  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([
-    "jvcampos531@gmail.com"
-  ]);
+  const [isEmailExist, setIsEmailExist] = useState<boolean>(false);
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   function openGuestsInput(){
     setIsGuestsInputOpen(true);
   }
@@ -21,6 +20,16 @@ export function App(){
 
   function closeGuestsModal(){
     setIsGuestsModalOpen(false);
+
+    checkEmailsExist();
+  }
+
+  function checkEmailsExist(){
+    if(emailsToInvite.length !== 0){
+      setIsEmailExist(true);
+    } else{
+      setIsEmailExist(false);
+    }
   }
 
   function insertEmail(event: FormEvent<HTMLFormElement>){
@@ -32,12 +41,14 @@ export function App(){
     if(email){
       setEmailsToInvite([...emailsToInvite, email])
     }
+
+    event.currentTarget.reset();
   }
 
   function removeEmail(email: string){
     const index = emailsToInvite.indexOf(email);
     emailsToInvite.splice(index, 1);
-    setEmailsToInvite([...emailsToInvite])
+    setEmailsToInvite([...emailsToInvite]);
   }
 
   return(
@@ -86,7 +97,9 @@ export function App(){
                 <button className="flex items-center gap-2 w-[460px] text-zinc-400" onClick={openGuestsModal}>
                   <UserRoundPlus className="size-5"/>
                   <span className="text-left text-lg flex-1">
-                    Quem estará na viagem?
+                    {
+                      isEmailExist ? emailsToInvite.length : "Quem estará na viagem?"
+                    }
                   </span>
                 </button>
                 <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={openGuestsInput}>
