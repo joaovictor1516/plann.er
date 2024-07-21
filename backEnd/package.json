@@ -1,0 +1,28 @@
+{
+  "name": "nlw-jorney-plann.er",
+  "version": "1.0.0",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaovictor1516/plann.er.git"
+  },
+  "keywords": [
+    "typescript",
+    "back-end",
+    "nodejs",
+    "nlw",
+    "prisma",
+    "axios",
+    "zod."
+  ],
+  "author": "joaovictor1516",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaovictor1516/plann.er/issues"
+  },
+  "homepage": "https://github.com/joaovictor1516/plann.er#readme",
+  "description": ""
+}
