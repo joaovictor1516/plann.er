@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
+  const [IsEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
   const [isEmailExist, setIsEmailExist] = useState<boolean>(false);
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   function openGuestsInput(){
@@ -49,6 +50,14 @@ export function App(){
     const index = emailsToInvite.indexOf(email);
     emailsToInvite.splice(index, 1);
     setEmailsToInvite([...emailsToInvite]);
+  }
+
+  function confirmTravel(){
+    setIsEndConfigTravel(true);
+  }
+
+  function disconfirmTravel(){
+    setIsEndConfigTravel(false);
   }
 
   return(
@@ -102,7 +111,7 @@ export function App(){
                     }
                   </span>
                 </button>
-                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={openGuestsInput}>
+                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={confirmTravel}>
                   Confirmar viagem
                   <ArrowRight className="size-5"/>
                 </button>
@@ -163,6 +172,20 @@ export function App(){
                 </button>
               </form>
 
+            </div>
+          </div>
+        )}
+
+        {IsEndConfigTravel && (
+          <div className="fixed inset-0 bg-black/60">
+            <div className="flex flex-col ">
+              <div className="flex justify-between">
+                
+                <button className="" onClick={disconfirmTravel}>
+                  <X />
+                </button>
+              </div>
+              <div className=""></div>
             </div>
           </div>
         )}
