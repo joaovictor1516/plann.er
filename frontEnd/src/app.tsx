@@ -5,6 +5,7 @@ export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
   const [IsEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
+  const [isEmailrepeated, setIsEmailRepeated] = useState<boolean>(false);
   const [isEmailExist, setIsEmailExist] = useState<boolean>(false);
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   function openGuestsInput(){
@@ -40,7 +41,12 @@ export function App(){
     const email = data.get("emailInput")?.toString();
 
     if(email){
-      setEmailsToInvite([...emailsToInvite, email])
+      setEmailsToInvite([...emailsToInvite, email]);
+
+      if(emailsToInvite.includes(email)){
+        setIsEmailRepeated(true);
+        return
+      }
     }
 
     event.currentTarget.reset();
@@ -180,7 +186,7 @@ export function App(){
           <div className="fixed inset-0 bg-black/60">
             <div className="flex flex-col ">
               <div className="flex justify-between">
-                
+
                 <button className="" onClick={disconfirmTravel}>
                   <X />
                 </button>
