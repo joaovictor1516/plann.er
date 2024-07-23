@@ -1,5 +1,5 @@
-import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
-import { FormEvent, useEffect, useState } from "react";
+import { ArrowRight, MapPin, Calendar, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
 export function App(){
