@@ -1,5 +1,5 @@
 import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
@@ -41,12 +41,18 @@ export function App(){
     const email = data.get("emailInput")?.toString();
 
     if(email){
-      setEmailsToInvite([...emailsToInvite, email]);
-
       if(emailsToInvite.includes(email)){
         setIsEmailRepeated(true);
-        return
+        event.currentTarget.reset();
+        
+        setTimeout(() => {
+          setIsEmailRepeated(false);
+        }, 10000);
+        
+        return;
       }
+    
+      setEmailsToInvite([...emailsToInvite, email]);
     }
 
     event.currentTarget.reset();
@@ -177,6 +183,12 @@ export function App(){
                   <Plus className="size-5"/>
                 </button>
               </form>
+
+              {isEmailrepeated && (
+                  <p className="text-red-600">
+                    Este e-mail já foi digitado.
+                  </p>
+                )}
 
             </div>
           </div>
