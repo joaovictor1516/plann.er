@@ -1,11 +1,11 @@
 import { ArrowRight, MapPin, Calendar, User, UserRoundPlus, Settings2, Plus, AtSign, X } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
   const [IsEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
-  const [isEmailrepeated, setIsEmailRepeated] = useState<boolean>(false);
   const [isEmailExist, setIsEmailExist] = useState<boolean>(false);
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   function openGuestsInput(){
@@ -42,17 +42,26 @@ export function App(){
 
     if(email){
       if(emailsToInvite.includes(email)){
-        setIsEmailRepeated(true);
         event.currentTarget.reset();
-        
-        setTimeout(() => {
-          setIsEmailRepeated(false);
-        }, 10000);
-        
+
+        toast.error("Este e-mail já foi adicaionado.", {
+          duration: 5000,
+          closeButton: true,
+        });
         return;
       }
-    
+
+      toast.success("E-mail adicionado com sucesso.", {
+        duration: 5000,
+        closeButton: true,
+      });
+      
       setEmailsToInvite([...emailsToInvite, email]);
+    } else{
+      toast.error("Por favor digite um e-mail válido.", {
+        duration: 5000,
+        closeButton: true,
+      });
     }
 
     event.currentTarget.reset();
@@ -119,7 +128,7 @@ export function App(){
                   <UserRoundPlus className="size-5"/>
                   <span className="text-left text-lg flex-1">
                     {
-                      isEmailExist ? emailsToInvite.length : "Quem estará na viagem?"
+                      isEmailExist ? `${emailsToInvite.length} pessoa(s) convidada(s)` : "Quem estará na viagem?"
                     }
                   </span>
                 </button>
@@ -183,13 +192,6 @@ export function App(){
                   <Plus className="size-5"/>
                 </button>
               </form>
-
-              {isEmailrepeated && (
-                  <p className="text-red-600">
-                    Este e-mail já foi digitado.
-                  </p>
-                )}
-
             </div>
           </div>
         )}
