@@ -231,7 +231,7 @@ export function App(){
                 </div>
 
                 <p className="text-left text-sm">
-                Para concluir a criação da viagem para <span className="text-zinc-100"> {locationInput} </span> nas datas <span className="text-zinc-100"> {dateInput} </span> preencha seus dados abaixo:
+                Para concluir a criação da viagem para <span className="text-zinc-100 font-semibold"> {locationInput} </span> nas datas <span className="text-zinc-100 font-semibold"> {dateInput} </span> preencha seus dados abaixo:
                 </p>
               </div>
               
