@@ -239,9 +239,9 @@ export function App(){
                 <div className="flex flex-col items-center gap-2 w-full">
                   <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
                     <User className="size-5 text-zinc-400"/>
-                    <input type="email"
-                          name="emailInput"
-                          id="emailInput"
+                    <input type="text"
+                          name="nameUserInput"
+                          id="nameUserInput"
                           className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full"
                           placeholder="Digite o seu nome completo"/>
                   </div>
