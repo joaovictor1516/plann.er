@@ -6,8 +6,6 @@ export function App(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
   const [IsEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
-  const [isEmailExist, setIsEmailExist] = useState<boolean>(false);
-
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   const [locationInput, setLocationInput] = useState<string>("");
   const [dateInput, setDateInput] = useState<string>("");
@@ -25,16 +23,6 @@ export function App(){
 
   function closeGuestsModal(){
     setIsGuestsModalOpen(false);
-
-    checkEmailsExist();
-  }
-
-  function checkEmailsExist(){
-    if(emailsToInvite.length !== 0){
-      setIsEmailExist(true);
-    } else{
-      setIsEmailExist(false);
-    }
   }
 
   function insertEmail(event: FormEvent<HTMLFormElement>){
@@ -149,7 +137,7 @@ export function App(){
                   <UserRoundPlus className="size-5"/>
                   <span className="text-left text-lg flex-1">
                     {
-                      isEmailExist ? `${emailsToInvite.length} pessoa(s) convidada(s)` : "Quem estará na viagem?"
+                      emailsToInvite.length > 0 ? (`${emailsToInvite.length} pessoa(s) convidada(s)`) : ("Quem estará na viagem?")
                     }
                   </span>
                 </button>
