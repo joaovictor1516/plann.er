@@ -137,7 +137,9 @@ export function App(){
                   <UserRoundPlus className="size-5"/>
                   <span className="text-left text-lg flex-1">
                     {
-                      emailsToInvite.length > 0 ? (`${emailsToInvite.length} pessoa(s) convidada(s)`) : ("Quem estará na viagem?")
+                      emailsToInvite.length > 0 ? 
+                        (<span className="text-zinc-100">{emailsToInvite.length} pessoa(s) convidada(s)</span>) : 
+                        (<span className="">Quem estará na viagem?</span>)
                     }
                   </span>
                 </button>
@@ -192,7 +194,7 @@ export function App(){
                   <input type="email"
                         name="emailInput"
                         id="emailInput"
-                        className="bg-transparent placeholder-zinc-400 text-lg outline-none w-64"
+                        className="bg-transparent placeholder-zinc-400 text-lg outline-none w-64 text-zinc-100"
                         placeholder="Digite o e-mail do convidado"/>
                 </div>
 
@@ -230,7 +232,7 @@ export function App(){
                     <input type="text"
                           name="nameUserInput"
                           id="nameUserInput"
-                          className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full"
+                          className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
                           placeholder="Digite o seu nome completo"/>
                   </div>
 
@@ -239,7 +241,7 @@ export function App(){
                     <input type="email"
                           name="emailInput"
                           id="emailInput"
-                          className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full"
+                          className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
                           placeholder="Seu e-mail pessoal"/>
                   </div>
                 </div>
