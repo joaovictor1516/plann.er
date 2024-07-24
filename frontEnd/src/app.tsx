@@ -235,7 +235,7 @@ export function App(){
                 </p>
               </div>
               
-              <form className="flex flex-col items-center justify-between border w-full border-none gap-4">
+              <form className="space-y-4 w-full">
                 <div className="flex flex-col items-center gap-2 w-full">
                   <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
                     <User className="size-5 text-zinc-400"/>
@@ -252,11 +252,11 @@ export function App(){
                           name="emailInput"
                           id="emailInput"
                           className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full"
-                          placeholder="Digite o seu e-mail"/>
+                          placeholder="Seu e-mail pessoal"/>
                   </div>
                 </div>
 
-                <button type="submit" className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-full">
+                <button type="submit" className="bg-lime-300 text-lime-950 flex items-center justify-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-full">
                   Confirmar criação da vigem.
                 </button>
               </form>
