@@ -2,10 +2,10 @@ import { ArrowRight, MapPin, Calendar, UserRoundPlus, Settings2, Plus, AtSign, X
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "sonner";
 
-export function CreateTrip(){
+export function CreateTripPage(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
-  const [IsEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
+  const [isEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   const [locationInput, setLocationInput] = useState<string>("");
   const [dateInput, setDateInput] = useState<string>("");
@@ -207,7 +207,7 @@ export function CreateTrip(){
           </div>
         )}
 
-        {IsEndConfigTravel && (
+        {isEndConfigTravel && (
           <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <div className="flex flex-col items-center bg-zinc-900 w-[640px] rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">
               <div className="flex flex-col justify-center w-full gap-2">
