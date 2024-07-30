@@ -1,9 +1,11 @@
 import { X, User, Mail } from "lucide-react";
+import { FormEvent } from "react";
 
 interface ConfirmTravelModalType{
     locationInput: string;
     dateInput: string;
     disconfirmTravel: () => void;
+    createTrip: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 export function ConfirmTravelModal(props: ConfirmTravelModalType){
@@ -25,7 +27,7 @@ export function ConfirmTravelModal(props: ConfirmTravelModalType){
                 </p>
               </div>
               
-              <form className="space-y-4 w-full">
+              <form onSubmit={props.createTrip} className="space-y-4 w-full">
                 <div className="flex flex-col items-center gap-2 w-full">
                   <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
                     <User className="size-5 text-zinc-400"/>

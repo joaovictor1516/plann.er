@@ -3,6 +3,7 @@ import { ConfirmTravelModal } from "./confirm-travel-modal";
 import { InviteGuestsModal } from "./invite-guests-modal";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 export function CreateTripPage(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
@@ -11,6 +12,7 @@ export function CreateTripPage(){
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   const [locationInput, setLocationInput] = useState<string>("");
   const [dateInput, setDateInput] = useState<string>("");
+  const navigate = useNavigate();
   function openGuestsInput(){
     setIsGuestsInputOpen(true);
   }
@@ -86,6 +88,12 @@ export function CreateTripPage(){
     if(date !== ""){
       setDateInput(date);
     }
+  }
+
+  function createTrip(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+
+    navigate("/trip/123");
   }
 
   return(
@@ -165,6 +173,7 @@ export function CreateTripPage(){
             locationInput={locationInput}
             dateInput={dateInput}
             disconfirmTravel={disconfirmTravel}
+            createTrip={createTrip}
           />
         )}
 
