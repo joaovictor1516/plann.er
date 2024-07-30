@@ -93,7 +93,7 @@ export function CreateTripPage(){
   function createTrip(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
 
-    navigate("/trip/123");
+    navigate("/trips/123");
   }
 
   return(
