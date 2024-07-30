@@ -4,7 +4,6 @@ interface ConfirmTravelModalType{
     locationInput: string;
     dateInput: string;
     disconfirmTravel: () => void;
-
 }
 
 export function ConfirmTravelModal(props: ConfirmTravelModalType){
