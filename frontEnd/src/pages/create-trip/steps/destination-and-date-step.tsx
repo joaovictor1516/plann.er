@@ -1,4 +1,4 @@
-import { MapPin, Calendar, Settings2, ArrowRight, UserRoundPlus } from "lucide-react";
+import { MapPin, Calendar, Settings2, ArrowRight } from "lucide-react";
 import { ChangeEvent } from "react";
 
 interface DestinationAndDateType{
