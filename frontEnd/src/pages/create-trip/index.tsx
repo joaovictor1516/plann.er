@@ -1,9 +1,10 @@
-import { ArrowRight, MapPin, Calendar, UserRoundPlus, Settings2 } from "lucide-react";
+import { DestinationAndDateStep } from "./steps/destination-and-date-step";
+import { InviteEmailsStep } from "./steps/invite-emails-step";
 import { ConfirmTravelModal } from "./confirm-travel-modal";
 import { InviteGuestsModal } from "./invite-guests-modal";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export function CreateTripPage(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
@@ -13,6 +14,7 @@ export function CreateTripPage(){
   const [locationInput, setLocationInput] = useState<string>("");
   const [dateInput, setDateInput] = useState<string>("");
   const navigate = useNavigate();
+
   function openGuestsInput(){
     setIsGuestsInputOpen(true);
   }
@@ -105,59 +107,22 @@ export function CreateTripPage(){
         </div>
         
         <div className="space-y-4">
-          <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
-              <div className="flex items-center gap-2">
-                <MapPin className="size-5 text-zinc-400"/>
-                <input type="text"
-                      name="locationInput"
-                      id="locationInput"
-                      disabled={isGuestsInputOpen}
-                      className="bg-transparent placeholder-zinc-400 text-lg outline-none"
-                      onChange={handleLocation}
-                      placeholder="Para onde você vai?"/>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="size-5 text-zinc-400"/>
-                <input type="text"
-                      name="dateInput"
-                      id="dateInput"
-                      disabled={isGuestsInputOpen}
-                      className="bg-transparent placeholder-zinc-400 text-lg outline-none"
-                      onChange={handleDate}
-                      placeholder="Quando?"/>
-              </div>
-            <div className="w-px h-6 bg-zinc-800"/>
-            { isGuestsInputOpen ? (
-                <button className="bg-zinc-800 text-zinc-200 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-zinc-700 w-56" onClick={closeGuestInput}>
-                  Alterar local/data
-                  <Settings2 className="size-5"/>
-                </button>
-              ):(
-                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={openGuestsInput}>
-                  Continuar
-                  <ArrowRight className="size-5"/>
-                </button>
-            )}
-          </div>
-          {isGuestsInputOpen && (
-              <div className="flex items-center justify-between bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
-                <button className="flex items-center gap-2 w-[460px] text-zinc-400" onClick={openGuestsModal}>
-                  <UserRoundPlus className="size-5"/>
-                  <span className="text-left text-lg flex-1">
-                    {
-                      emailsToInvite.length > 0 ? 
-                        (<span className="text-zinc-100">{emailsToInvite.length} pessoa(s) convidada(s)</span>) : 
-                        (<span className="">Quem estará na viagem?</span>)
-                    }
-                  </span>
-                </button>
-                <button className="bg-lime-300 text-lime-950 flex items-center text-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400" onClick={confirmTravel}>
-                  Confirmar viagem
-                  <ArrowRight className="size-5"/>
-                </button>
-              </div>
-            )}
+          <DestinationAndDateStep
+            closeGuestInput={closeGuestInput}
+            handleDate={handleDate}
+            handleLocation={handleLocation}
+            isGuestsInputOpen={isGuestsInputOpen}
+            openGuestsInput={openGuestsInput}
+          />
         </div>
+
+        {isGuestsInputOpen && (
+          <InviteEmailsStep
+            openGuestsModal={openGuestsModal}
+            confirmTravel={confirmTravel}
+            emailsToInvite={emailsToInvite}  
+          />      
+        )}
 
         {isGuestsModalOpen && (
           <InviteGuestsModal 
