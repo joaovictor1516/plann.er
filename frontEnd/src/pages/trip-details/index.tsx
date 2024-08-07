@@ -2,14 +2,24 @@ import { MapPin, Calendar, Plus, Settings2, CircleCheck, Link2, CircleDashed, Us
 import { useState } from "react";
 
 export function TripDetailsPage(){
-    const [isCreatyActivityModalOpen, setisCreatyActivityModalOpen] = useState<boolean>(false);
+    const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
+
+    const [isLinkRegistrationModalOpen, setIsLinkRegistrationModalOpen] = useState<boolean>(false);
 
     function openCreatyActivityModal(){
-        setisCreatyActivityModalOpen(true);
+        setIsCreatyActivityModalOpen(true);
     }
 
     function closeCreatyActivityModal(){
-        setisCreatyActivityModalOpen(false);
+        setIsCreatyActivityModalOpen(false);
+    }
+
+    function openLinkRegistrationModal(){
+        setIsLinkRegistrationModalOpen(true);
+    }
+
+    function closeLinkRegistrationModal(){
+        setIsLinkRegistrationModalOpen(false);
     }
 
     return(
@@ -118,7 +128,7 @@ export function TripDetailsPage(){
                                 <Link2 className="size-5"/>
                             </div>
 
-                            <button className="bg-zinc-800 text-zinc-200 flex items-center justify-center gap-2 px-5 py-2 rounded-lg font-medium hover:bg-zinc-700 w-full h-11">
+                            <button onClick={openLinkRegistrationModal} className="bg-zinc-800 text-zinc-200 flex items-center justify-center gap-2 px-5 py-2 rounded-lg font-medium hover:bg-zinc-700 w-full h-11">
                                 <Plus className=""/>
                                 Cadastrar novo link
                             </button>
@@ -180,7 +190,7 @@ export function TripDetailsPage(){
                                 </p>
                             </div>
                         
-                            <form  className="space-y-4 w-full">
+                            <form className="space-y-3 w-full">
                                 <div className="flex flex-col items-center gap-2 w-full">
                                     
                                     <div className="flex items-center gap-2 w-full h-14 bg-zinc-950 px-3 py-2 rounded-lg">
@@ -197,7 +207,7 @@ export function TripDetailsPage(){
                                         <div className="bg-zinc-950 flex flex-1 items-center h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                             <Calendar className="size-5 text-zinc-400"/>
 
-                                            <input type="email"
+                                            <input type="text"
                                                 name="dateInput"
                                                 id="dateInput"
                                                 className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
@@ -223,6 +233,53 @@ export function TripDetailsPage(){
                         </div>
                     </div>
                 </div>
+            )}
+
+            { isLinkRegistrationModalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
+                <div className="flex flex-col items-center bg-zinc-900 w-[540px] rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">
+                  <div className="flex flex-col justify-center w-full gap-2">
+                    <div className="flex justify-between">
+                      <h2 className="text-zinc-50 text-lg font-semibold">
+                        Cadastrar link
+                      </h2>
+                      <button>
+                        <X className="size-5" onClick={closeLinkRegistrationModal}/>
+                      </button>
+                    </div>
+    
+                    <p className="text-left text-sm">
+                    Todos convidados podem visualizar os links importantes.
+                    </p>
+                  </div>
+                  
+                  <form className="space-y-3 w-full">
+                    <div className="flex flex-col items-center gap-2 w-full">
+                      <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
+                        <Tag className="size-5 text-zinc-400"/>
+                        <input type="text"
+                              name="nameLinkInput"
+                              id="nameLinkInput"
+                              className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
+                              placeholder="Título do link"/>
+                      </div>
+    
+                      <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
+                        <Link2 className="size-5 text-zinc-400"/>
+                        <input type="text"
+                              name="urlInput"
+                              id="urlInput"
+                              className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
+                              placeholder="URL"/>
+                      </div>
+                    </div>
+    
+                    <button className="bg-lime-300 text-lime-950 flex items-center justify-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-full">
+                      Salvar link
+                    </button>
+                  </form>
+                </div>
+            </div>
             )}
         </div>
     )
