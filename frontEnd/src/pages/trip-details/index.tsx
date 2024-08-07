@@ -177,7 +177,7 @@ export function TripDetailsPage(){
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
                                     <h2 className="text-zinc-50 text-lg font-semibold">
-                                        Cadastrar atividade.
+                                        Cadastrar atividade
                                     </h2>
                                 
                                     <button>
