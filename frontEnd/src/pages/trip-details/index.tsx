@@ -227,7 +227,7 @@ export function TripDetailsPage(){
                                         <div className="bg-zinc-950 flex items-center w-[140px] h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                             <Clock className="size-5 text-zinc-400 shrink-0"/>
 
-                                            <input type="text"
+                                            <input type="date"
                                                 name="clockInput"
                                                 id="clockInput"
                                                 className="bg-transparent placeholder-zinc-400 text-lg outline-none text-zinc-100"
