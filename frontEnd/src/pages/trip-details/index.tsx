@@ -217,7 +217,7 @@ export function TripDetailsPage(){
                                         <div className="bg-zinc-950 flex flex-1 items-center h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                             <Calendar className="size-5 text-zinc-400"/>
 
-                                            <input type="text"
+                                            <input type="date"
                                                 name="dateInput"
                                                 id="dateInput"
                                                 className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
@@ -227,7 +227,7 @@ export function TripDetailsPage(){
                                         <div className="bg-zinc-950 flex items-center w-[140px] h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                             <Clock className="size-5 text-zinc-400 shrink-0"/>
 
-                                            <input type="date"
+                                            <input type="time"
                                                 name="clockInput"
                                                 id="clockInput"
                                                 className="bg-transparent placeholder-zinc-400 text-lg outline-none text-zinc-100"
