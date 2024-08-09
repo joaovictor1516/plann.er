@@ -1,9 +1,10 @@
-import { CircleCheck, Link2, CircleDashed, UserCog, X, Tag, User, Mail } from "lucide-react";
+import { Link2, X, Tag, User, Mail } from "lucide-react";
 import { useState } from "react";
 import { CreateActiviteModal } from "./create-activite-modal";
 import { LocaleDateModal } from "./locale-date-modal";
 import { ActivityModal } from "./activity-modal";
 import { LinkModal } from "./link-modal";
+import { InviteModal } from "./invite-modal";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -52,7 +53,9 @@ export function TripDetailsPage(){
 
                     <div className="w-full h-px bg-zinc-800"/>
 
-                    
+                    <InviteModal
+                      openConfirmeInviteModal={openConfirmeInviteModal}
+                    />
                 </div>
             </main>
 
