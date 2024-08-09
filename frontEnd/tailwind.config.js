@@ -18,7 +18,6 @@ export default {
       }
     }
   },
-  plugins: [require('prettier-plugin-tailwindcss')],
-  tailwindFunctions: ['tv']
+  plugins: [],
 }
 
