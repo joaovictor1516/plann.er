@@ -4,7 +4,7 @@ interface LinkModalType {
     openLinkRegistrationModal: () => void;
 }
 
-export function LinkModal(props: LinkModalType){
+export function LinkModal(props: Readonly<LinkModalType>){
     return(
         <div className="space-y-6">
                         <h2 className="text-xl font-semibold">Links importantes</h2>
