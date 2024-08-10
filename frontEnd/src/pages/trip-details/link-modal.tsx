@@ -1,4 +1,5 @@
 import { Link2, Plus } from "lucide-react";
+import { Button } from "../../components/button";
 
 interface LinkModalType {
     openLinkRegistrationModal: () => void;
@@ -38,10 +39,10 @@ export function LinkModal(props: Readonly<LinkModalType>){
                                 <Link2 className="size-5"/>
                             </div>
 
-                            <button onClick={props.openLinkRegistrationModal} className="bg-zinc-800 text-zinc-200 flex items-center justify-center gap-2 px-5 py-2 rounded-lg font-medium hover:bg-zinc-700 w-full h-11">
+                            <Button colors="secundary" size="full" onClick={props.openLinkRegistrationModal}>
                                 <Plus className=""/>
                                 Cadastrar novo link
-                            </button>
+                            </Button>
                         </div>
                     </div>
     )

@@ -1,4 +1,5 @@
 import { Calendar, MapPin, Settings2 } from "lucide-react";
+import { Button } from "../../components/button";
 import { useState } from "react";
 import axios from "axios";
 
@@ -27,10 +28,10 @@ export function LocaleDateModal(){
 
                     <div className="w-px h-6 bg-zinc-800"/>
 
-                    <button className="bg-zinc-800 text-zinc-200 flex items-center gap-2 px-5 py-2 rounded-lg font-medium hover:bg-zinc-700">
+                    <Button colors="secundary" size="default">
                         Alterar local/data
                         <Settings2 className="size-5"/>
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

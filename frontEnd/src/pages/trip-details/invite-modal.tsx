@@ -1,4 +1,5 @@
 import { CircleCheck, CircleDashed, UserCog } from "lucide-react";
+import { Button } from "../../components/button";
 
 interface InviteModalType{
     openConfirmeInviteModal: () => void;
@@ -30,10 +31,10 @@ export function InviteModal(props: Readonly<InviteModalType>){
                     </p>
                 </div>
 
-                <button onClick={props.openConfirmeInviteModal} className="bg-zinc-800 text-zinc-200 flex items-center justify-center gap-2 px-5 py-2 rounded-lg font-medium hover:bg-zinc-700 w-full h-11">
+                <Button colors="secundary" size="full" onClick={props.openConfirmeInviteModal}>
                     <UserCog className=""/>
                     Gerenciar Convidados
-                </button>
+                </Button>
             </div>
         </div>
     )

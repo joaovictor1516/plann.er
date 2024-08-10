@@ -1,4 +1,5 @@
 import { X, Tag, Link2 } from "lucide-react";
+import { Button } from "../../components/button";
 
 interface RegistrationLinkModalType{
     closeLinkRegistrationModal: () => void;
@@ -44,9 +45,9 @@ export function RegistrationLinkModal(props: Readonly<RegistrationLinkModalType>
                     </div>
                 </div>
 
-                <button className="bg-lime-300 text-lime-950 flex items-center justify-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-full">
+                <Button colors="primary" size="full">
                     Salvar link
-                </button>
+                </Button>
                 </form>
             </div>
         </div>
