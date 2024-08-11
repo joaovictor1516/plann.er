@@ -1,5 +1,6 @@
 import { X, User, Mail } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
 
 interface ConfirmTravelModalType{
     locationInput: string;
@@ -48,9 +49,9 @@ export function ConfirmTravelModal(props: ConfirmTravelModalType){
                   </div>
                 </div>
 
-                <button type="submit" className="bg-lime-300 text-lime-950 flex items-center justify-center px-5 py-2 gap-2 rounded-lg font-medium hover:bg-lime-400 w-full">
+                <Button type="submit" colors="primary" size="full">
                   Confirmar criação da vigem.
-                </button>
+                </Button>
               </form>
             </div>
         </div>
