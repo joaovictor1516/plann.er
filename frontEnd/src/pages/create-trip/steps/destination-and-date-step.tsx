@@ -12,7 +12,7 @@ interface DestinationAndDateType{
 
 export function DestinationAndDateStep(props: DestinationAndDateType){
   return(
-    <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
+    <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-4 gap-3 shadow-shape">
         <div className="flex items-center gap-2">
           <MapPin className="size-5 text-zinc-400"/>
           <input type="text"
@@ -36,7 +36,7 @@ export function DestinationAndDateStep(props: DestinationAndDateType){
         <div className="w-px h-6 bg-zinc-800"/>
         {props.isGuestsInputOpen ? (
           <Button onClick={props.closeGuestInput} colors="secundary" size="default">
-            Alterar local/data
+            <div className="w-36">Alterar local/data</div>
             <Settings2 className="size-5"/>
           </Button>
         ):(
