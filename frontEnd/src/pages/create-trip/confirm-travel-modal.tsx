@@ -9,7 +9,7 @@ interface ConfirmTravelModalType{
     createTrip: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-export function ConfirmTravelModal(props: ConfirmTravelModalType){
+export function ConfirmTravelModal(props: Readonly<ConfirmTravelModalType>){
     return(
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <div className="flex flex-col items-center bg-zinc-900 w-[640px] rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">

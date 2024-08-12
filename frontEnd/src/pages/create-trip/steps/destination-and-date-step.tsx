@@ -10,9 +10,9 @@ interface DestinationAndDateType{
     openGuestsInput: () => void;
 }
 
-export function DestinationAndDateStep(props: DestinationAndDateType){
+export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
   return(
-    <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-4 gap-3 shadow-shape">
+    <div className="flex items-center bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
         <div className="flex items-center gap-2">
           <MapPin className="size-5 text-zinc-400"/>
           <input type="text"
