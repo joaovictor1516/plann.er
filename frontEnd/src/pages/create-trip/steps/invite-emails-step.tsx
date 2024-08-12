@@ -7,7 +7,7 @@ interface InviteEmailsStepType{
     confirmTravel: () => void;
 }
 
-export function InviteEmailsStep(props: InviteEmailsStepType){
+export function InviteEmailsStep(props: Readonly<InviteEmailsStepType>){
     return(
         <div className="flex items-center justify-between bg-zinc-900 rounded-xl h-16 px-6 gap-3 shadow-shape">
                 <button className="flex items-center gap-2 w-[460px] text-zinc-400" onClick={props.openGuestsModal}>
