@@ -8,11 +8,17 @@ import { toast } from "sonner";
 
 export function CreateTripPage(){
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState<boolean>(false);
+  
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState<boolean>(false);
+  
   const [isEndConfigTravel, setIsEndConfigTravel] = useState<boolean>(false);
+  
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
+  
   const [locationInput, setLocationInput] = useState<string>("");
+  
   const [dateInput, setDateInput] = useState<string>("");
+  
   const navigate = useNavigate();
 
   function openGuestsInput(){
