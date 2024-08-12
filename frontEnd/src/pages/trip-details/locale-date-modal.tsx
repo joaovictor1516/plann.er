@@ -1,11 +1,11 @@
 import { Calendar, MapPin, Settings2 } from "lucide-react";
 import { Button } from "../../components/button";
-import { useState } from "react";
-import axios from "axios";
 
-export function LocaleDateModal(){
-    
+interface LocalDateModalType{
+    changeDateTime: () => void;
+}
 
+export function LocaleDateModal(props: Readonly<LocalDateModalType>){
     return(
         <div className="space-x-4 bg-zinc-900">
             <div className="flex items-center justify-between bg-zinc-900 px-4 h-16 rounded-xl shadow-shape">
@@ -28,7 +28,7 @@ export function LocaleDateModal(){
 
                     <div className="w-px h-6 bg-zinc-800"/>
 
-                    <Button colors="secundary" size="default">
+                    <Button colors="secundary" size="default" onClick={props.changeDateTime}>
                         Alterar local/data
                         <Settings2 className="size-5"/>
                     </Button>

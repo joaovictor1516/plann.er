@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { CreateActiviteModal } from "./create-activite-modal";
-import { LocaleDateModal } from "./locale-date-modal";
-import { ActivityModal } from "./activity-modal";
 import { LinkModal } from "./link-modal";
 import { InviteModal } from "./invite-modal";
-import { RegistrationLinkModal } from "./registration-link-modal";
+import { useNavigate } from "react-router-dom";
+import { ActivityModal } from "./activity-modal";
+import { LocaleDateModal } from "./locale-date-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
+import { CreateActiviteModal } from "./create-activite-modal";
+import { RegistrationLinkModal } from "./registration-link-modal";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -13,6 +14,8 @@ export function TripDetailsPage(){
     const [isLinkRegistrationModalOpen, setIsLinkRegistrationModalOpen] = useState<boolean>(false);
 
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     function openCreatyActivityModal(){
         setIsCreatyActivityModalOpen(true);
@@ -38,9 +41,15 @@ export function TripDetailsPage(){
         setIsConfirmeInvatedModalOpen(false);
     }
 
+    function changeDateTime(){
+        navigate("/");
+    }
+
     return(
         <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
-            <LocaleDateModal/>
+            <LocaleDateModal
+                changeDateTime={changeDateTime}
+            />
 
             <main className="flex gap-16 px-4">
                 <ActivityModal 
