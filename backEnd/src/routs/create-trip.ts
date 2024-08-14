@@ -1,17 +1,12 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import localizedFormate from "dayjs/plugin/localizedFormat";
 import { getMailClient } from "../lib/mail";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import nodemailer from "nodemailer";
-import "dayjs/locale/pt-br";
-import dayjs from "dayjs";
 import { z } from "zod";
+import { dayjs } from "../lib/dayjs";
 
 export async function createTrip(app: FastifyInstance){
-    dayjs.extend(localizedFormate);
-    dayjs.locale("pt-br");
-
     app.withTypeProvider<ZodTypeProvider>().post("/trips", {
         schema: {
             body: z.object({
@@ -89,33 +84,6 @@ export async function createTrip(app: FastifyInstance){
                     <p>Caso você não sáiba do que se trata este e-mail, apenas ignore-o.</p>
                 </div>
             `.trim()
-        });
-
-        emails_to_invite.map(async (email) => {
-            await mail.sendMail({
-                from: {
-                    name: "Equipe plann.er",
-                    address: "notanswear@plann.er.com"
-                },
-                to: {
-                    name: "Doll",
-                    address: email
-                },
-                subject: `Confirme o convite de ${owner_name} de uma viagem para ${destination} 😊`,
-                html: `
-                    <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6%;">
-                        <p>${owner_name} convidou você foi convidado(a) para uma viagem para <strong>${destination}</strong> nas datas <strong>${formatetStartDate} e ${formatetEndDate}</strong>.</p>
-                        <br>
-                        <p>Para confirmar a viagem clique no link a baixo:</p>
-                        <br>
-                        <p>
-                            <a href="${confirmationLink}">Confirmar viagem.</a>
-                        </p>
-                        <br>
-                        <p>Caso você não conheça ${owner_name}, apenas ignore o este e-mail.</p>
-                    </div>
-                `.trim()
-            })
         });
 
         console.log(nodemailer.getTestMessageUrl(message));
