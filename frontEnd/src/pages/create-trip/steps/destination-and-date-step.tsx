@@ -36,7 +36,7 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
         <div className="w-px h-6 bg-zinc-800"/>
         {props.isGuestsInputOpen ? (
           <Button onClick={props.closeGuestInput} colors="secundary" size="default">
-            <div className="w-36">Alterar local/data</div>
+            <div className="w-40">Alterar local/data</div>
             <Settings2 className="size-5"/>
           </Button>
         ):(
