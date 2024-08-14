@@ -14,11 +14,12 @@ export async function createTrip(app: FastifyInstance){
                 starts_at: z.coerce.date(),
                 ends_at: z.coerce.date(),
                 owner_name: z.string(),
-                owner_email: z.string().email()
+                owner_email: z.string().email(),
+                emails_to_invite: z.array(z.string().email())
             })
         }
     }, async (request) => {
-        const {destination, starts_at, ends_at, owner_name, owner_email} = request.body;
+        const {destination, starts_at, ends_at, owner_name, owner_email, emails_to_invite} = request.body;
         
         if(dayjs(starts_at).isBefore(new Date())){
             throw new Error("Invalid trip start date.");
@@ -34,11 +35,20 @@ export async function createTrip(app: FastifyInstance){
                 starts_at,
                 ends_at,
                 participants:{
-                    create: {        
-                        name: owner_name,
-                        email: owner_email,
-                        is_owner :true,
-                        is_confirmed: true
+                    createMany: {        
+                        data: [
+                            {
+                                name: owner_name,
+                                email: owner_email,
+                                is_owner :true,
+                                is_confirmed: true
+                            },
+                            ...emails_to_invite.map(email => {
+                                return {
+                                    email
+                                }
+                            })
+                        ]
                     }
                 }
             }
@@ -57,6 +67,21 @@ export async function createTrip(app: FastifyInstance){
             },
             subject: "E-mail de confirmação da criação da viagem 😊",
             html: "<p>A sua viagem foi criada com sucesso, agradecemos por ter escolhido a Plann.er.</p>"
+        });
+
+        emails_to_invite.map(async (email) => {
+            await mail.sendMail({
+                from: {
+                    name: "Equipe plann.er",
+                    address: "notensware@plann.er.com"
+                },
+                to: {
+                    name: "Doll",
+                    address: email
+                },
+                subject: `${owner_name} te convidou para uma viagem 😊`,
+                html: `<p>A Plann.er está feliz em enviar o convite que da viagem feita pelo(a) ${owner_name}, que será para ${destination}, durante os dias ${starts_at} e ${ends_at}.</p>`
+            })
         });
 
         console.log(nodemailer.getTestMessageUrl(message));
