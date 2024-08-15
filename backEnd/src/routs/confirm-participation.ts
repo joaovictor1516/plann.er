@@ -4,45 +4,34 @@ import { prisma } from "../lib/prisma";
 import { z } from "zod";
 
 export async function confirmParticipation(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().get("/trips/:tripId/confirm/:participantId", {
+    app.withTypeProvider<ZodTypeProvider>().get("/participants/:participantId/confirm", {
         schema: {
             params: z.object({
-                tripId: z.string().uuid(),
                 participantId: z.string().uuid()
             })
         }
     }, async (request, reply) => {
-        const {tripId, participantId} = request.params;
-
-        const trip = await prisma.trip.findUnique({
-            where: {
-                id: tripId
-            }
-        });
+        const participantId = request.params.participantId;
 
         const participant = await prisma.participant.findUnique({
             where: {
-                id: participantId,
-                trip_id: tripId
+                id: participantId
             }
         });
 
-        if(!trip?.is_confirmed){
-            return reply.redirect(`http://localhost:3333/trips/${tripId}/confirm`);
-        } else if(participant?.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
-        }
+        if(participant?.is_confirmed){
+            return reply.redirect(`http://localhost:3030/trips/${participant.trip_id}`);
+        } 
 
         await prisma.participant.update({
             where: {
-                id: participantId,
-                trip_id: tripId
+                id: participantId
             },
             data: {
                 is_confirmed: true
             }
         });
 
-        return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+        return reply.redirect(`http://localhost:3030/trips/${participant?.trip_id}`);
     })
 }
