@@ -65,7 +65,7 @@ export async function confirmTrip(app: FastifyInstance){
                             <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6%;">
                                 <p>Você foi convidado(a) para uma viagem para <strong>${trip.destination}</strong> nas datas <strong>${formatetStartDate} e ${formatetEndDate}</strong>.</p>
                                 <br>
-                                <p>Para confirmar a viagem clique no link a baixo:</p>
+                                <p>Para confirmar sua preseça na viagem, clique no link a baixo:</p>
                                 <br>
                                 <p>
                                     <a href="${confirmationLink}">Confirmar viagem.</a>
@@ -80,6 +80,6 @@ export async function confirmTrip(app: FastifyInstance){
                 })
             );
             
-        return "Confirmação da criação da viagem 😊!";
+        return reply.redirect(`http://localhost:3030/trips/${tripId}`);
     });
 }
