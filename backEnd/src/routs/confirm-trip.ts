@@ -22,6 +22,13 @@ export async function confirmTrip(app: FastifyInstance){
         const trip = await prisma.trip.findUnique({
             where: {
                 id: tripId
+            },
+            include: {
+                participants:{
+                    where: {
+                        is_owner: false
+                    }
+                }
             }
         });
 
@@ -40,17 +47,10 @@ export async function confirmTrip(app: FastifyInstance){
             }
         });
 
-        const participants = await prisma.participant.findMany({
-            where: {
-                trip_id: tripId,
-                is_owner: false
-            }
-        });
-
         const formatetStartDate = dayjs(trip.starts_at).format("LL");
         const formatetEndDate = dayjs(trip.ends_at).format("LL");
 
-            participants.map(async (participant) => {
+            trip.participants.map(async (participant) => {
                 const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm/${participant.id}`;
 
                 const menssage = await mail.sendMail({
