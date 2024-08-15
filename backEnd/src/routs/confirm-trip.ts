@@ -7,7 +7,6 @@ import nodemailer from "nodemailer";
 import { z } from "zod";
 
 export async function confirmTrip(app: FastifyInstance){
-
     const mail = await getMailClient();
 
     app.withTypeProvider<ZodTypeProvider>().get("/trips/:tripId/confirm", {
