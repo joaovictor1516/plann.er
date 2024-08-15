@@ -59,10 +59,7 @@ export async function confirmTrip(app: FastifyInstance){
                             name: "Equipe plann.er",
                             address: "notanswear@plann.er.com"
                         },
-                        to: {
-                            name: "Doll",
-                            address: participant.email
-                        },
+                        to: participant.email,
                         subject: `Confirme o convite de uma viagem para ${trip.destination} 😊`,
                         html: `
                             <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6%;">
