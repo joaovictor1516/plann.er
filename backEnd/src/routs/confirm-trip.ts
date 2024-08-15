@@ -50,36 +50,38 @@ export async function confirmTrip(app: FastifyInstance){
         const formatetStartDate = dayjs(trip.starts_at).format("LL");
         const formatetEndDate = dayjs(trip.ends_at).format("LL");
 
-            trip.participants.map(async (participant) => {
-                const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm/${participant.id}`;
+            await Promise.all(    
+                trip.participants.map(async (participant) => {
+                    const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm/${participant.id}`;
 
-                const menssage = await mail.sendMail({
-                    from: {
-                        name: "Equipe plann.er",
-                        address: "notanswear@plann.er.com"
-                    },
-                    to: {
-                        name: "Doll",
-                        address: participant.email
-                    },
-                    subject: `Confirme o convite de uma viagem para ${trip.destination} 😊`,
-                    html: `
-                        <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6%;">
-                            <p>Você foi convidado(a) para uma viagem para <strong>${trip.destination}</strong> nas datas <strong>${formatetStartDate} e ${formatetEndDate}</strong>.</p>
-                            <br>
-                            <p>Para confirmar a viagem clique no link a baixo:</p>
-                            <br>
-                            <p>
-                                <a href="${confirmationLink}">Confirmar viagem.</a>
-                            </p>
-                            <br>
-                            <p>Caso está mensagem seja estranha para você, apenas ignore o este e-mail.</p>
-                        </div>
-                    `.trim()
-                });
+                    const menssage = await mail.sendMail({
+                        from: {
+                            name: "Equipe plann.er",
+                            address: "notanswear@plann.er.com"
+                        },
+                        to: {
+                            name: "Doll",
+                            address: participant.email
+                        },
+                        subject: `Confirme o convite de uma viagem para ${trip.destination} 😊`,
+                        html: `
+                            <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6%;">
+                                <p>Você foi convidado(a) para uma viagem para <strong>${trip.destination}</strong> nas datas <strong>${formatetStartDate} e ${formatetEndDate}</strong>.</p>
+                                <br>
+                                <p>Para confirmar a viagem clique no link a baixo:</p>
+                                <br>
+                                <p>
+                                    <a href="${confirmationLink}">Confirmar viagem.</a>
+                                </p>
+                                <br>
+                                <p>Caso está mensagem seja estranha para você, apenas ignore o este e-mail.</p>
+                            </div>
+                        `.trim()
+                    });
 
-                console.log(nodemailer.getTestMessageUrl(menssage));
-            });
+                    console.log(nodemailer.getTestMessageUrl(menssage));
+                })
+            );
             
         return "Confirmação da criação da viagem 😊!";
     });
