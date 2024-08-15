@@ -19,9 +19,11 @@ export async function confirmParticipation(app: FastifyInstance){
             }
         });
 
-        if(participant?.is_confirmed){
+        if(!participant){
+            throw new Error("Participant not founded.");
+        }else if(participant?.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${participant.trip_id}`);
-        } 
+        }
 
         await prisma.participant.update({
             where: {
