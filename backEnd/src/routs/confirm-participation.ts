@@ -43,6 +43,6 @@ export async function confirmParticipation(app: FastifyInstance){
             }
         });
 
-        return "Deu bom";
+        return reply.redirect(`http://localhost:3030/trips/${tripId}`);
     })
 }
