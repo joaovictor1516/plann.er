@@ -29,6 +29,13 @@ export async function getLinks(app: FastifyInstance){
             reply.redirect(`http://localhost:3030/trips/${tripId}`);
         }
 
-        return {links: trip.links};
+        const links = trip.links.map((link) => {
+            return {
+                title: link.title,
+                url: link.url
+            }
+        });
+
+        return {links};
     });
 }
