@@ -1,6 +1,7 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { dayjs } from "../lib/dayjs";
 import { z } from "zod";
 
 export async function getActivities(app: FastifyInstance){
@@ -29,6 +30,19 @@ export async function getActivities(app: FastifyInstance){
             reply.redirect(`http://localhost:3030/trips/${tripId}`);
         }
 
-        return {activities: trip.activities};
+        const differenceInDaysBetwenFirstTripDateAndLastTripDate = dayjs(trip.ends_at).diff(trip.starts_at, "days");
+        
+        const activities = Array.from({length: differenceInDaysBetwenFirstTripDateAndLastTripDate + 2}).map((_, index) => {
+            const date = dayjs(trip.starts_at).add(index, "days").toDate();
+            
+            return{
+                date,
+                activity: trip.activities.filter(activity => {
+                    return dayjs(activity.occurs_at).isSame(date, "day");
+                })
+            }
+        });
+
+        return activities;
     });
 }
