@@ -1,6 +1,7 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { dayjs } from "../lib/dayjs";
 import { z } from "zod";
 
 export async function createActivity(app: FastifyInstance){
@@ -10,7 +11,7 @@ export async function createActivity(app: FastifyInstance){
                 tripId: z.string().uuid()
             }),
             body: z.object({
-                title: z.string(),
+                title: z.string().min(4),
                 occurs_at: z.coerce.date()
             })
 
@@ -27,24 +28,22 @@ export async function createActivity(app: FastifyInstance){
 
         if(!trip){
             throw new Error("Trip not found");
-        } else if(!trip.is_confirmed){
+        } else
+        if(!trip.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+        } else
+        if(dayjs(occurs_at).isBefore(trip.starts_at) || dayjs(occurs_at).isAfter(trip.ends_at)){
+            throw new Error("Invalit activity date");
         }
 
-        await prisma.trip.update({
-            where: {
-                id: tripId
-            },
+        const activity = await prisma.activity.create({
             data: {
-                activities: {
-                    create: {
-                        title,
-                        occurs_at
-                    }
-                }
+                title,
+                occurs_at,
+                trip_id: tripId
             }
         });
 
-        return "Atividade criada com sucesso";
+        return {activityId: activity.id};
     });
 }
