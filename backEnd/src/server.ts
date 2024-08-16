@@ -1,10 +1,11 @@
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
-import { confirmTrip } from "./routs/confirm-trip";
-import { createTrip } from "./routs/create-trip";
-import cors from "@fastify/cors";
-import fastify from "fastify";
 import { confirmParticipation } from "./routs/confirm-participation";
 import { createActivity } from "./routs/create-activity";
+import { confirmTrip } from "./routs/confirm-trip";
+import { createTrip } from "./routs/create-trip";
+import { createLink } from "./routs/create-link";
+import cors from "@fastify/cors";
+import fastify from "fastify";
 
 const app = fastify();
 
@@ -16,6 +17,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 app.register(createTrip);
+app.register(createLink);
 app.register(confirmTrip);
 app.register(createActivity);
 app.register(confirmParticipation);
