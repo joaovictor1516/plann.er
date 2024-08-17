@@ -27,8 +27,6 @@ export async function deleteActivity(app: FastifyInstance){
         } catch(error){
             console.error(`Erro: ${error}`);
             return;
-        }
-
-        
+        }  
     })
 }
