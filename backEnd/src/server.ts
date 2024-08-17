@@ -10,6 +10,7 @@ import { createLink } from "./routs/create-link";
 import { getLinks } from "./routs/get-links";
 import cors from "@fastify/cors";
 import fastify from "fastify";
+import { deleteLink } from "./routs/delete-link";
 
 const app = fastify();
 
@@ -21,6 +22,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 app.register(getLinks);
+app.register(deleteLink);
 app.register(createTrip);
 app.register(createLink);
 app.register(confirmTrip);
