@@ -28,6 +28,8 @@ export async function updateLinks(app: FastifyInstance){
                     url
                 }
             });
+
+            return "Link uptadet successfully.";
         } catch(error){
             return error;
         }
