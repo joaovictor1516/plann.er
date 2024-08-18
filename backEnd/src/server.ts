@@ -5,12 +5,13 @@ import { deleteActivity } from "./routs/delete-activity";
 import { createActivity } from "./routs/create-activity";
 import { getActivities } from "./routs/get-activities";
 import { confirmTrip } from "./routs/confirm-trip";
+import { updateLinks } from "./routs/update-links";
 import { createTrip } from "./routs/create-trip";
 import { createLink } from "./routs/create-link";
+import { deleteLink } from "./routs/delete-link";
 import { getLinks } from "./routs/get-links";
 import cors from "@fastify/cors";
 import fastify from "fastify";
-import { deleteLink } from "./routs/delete-link";
 
 const app = fastify();
 
@@ -25,6 +26,7 @@ app.register(getLinks);
 app.register(deleteLink);
 app.register(createTrip);
 app.register(createLink);
+app.register(updateLinks);
 app.register(confirmTrip);
 app.register(getActivities);
 app.register(createActivity);
