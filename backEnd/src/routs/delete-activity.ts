@@ -13,10 +13,6 @@ export async function deleteActivity(app: FastifyInstance){
     }, async (request) => {
         const activityId = request.params.activityId;
 
-        if(!activityId){
-            return "Activity not found.";
-        }
-
         try{
             await prisma.activity.delete({
                 where: {
