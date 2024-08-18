@@ -1,6 +1,7 @@
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import { confirmParticipation } from "./routs/confirm-participation";
 import { getParticipants } from "./routs/get-participants";
+import { updateActivity } from "./routs/update-activities";
 import { deleteActivity } from "./routs/delete-activity";
 import { createActivity } from "./routs/create-activity";
 import { getActivities } from "./routs/get-activities";
@@ -31,6 +32,7 @@ app.register(confirmTrip);
 app.register(getActivities);
 app.register(createActivity);
 app.register(deleteActivity);
+app.register(updateActivity);
 app.register(getParticipants);
 app.register(confirmParticipation);
 
