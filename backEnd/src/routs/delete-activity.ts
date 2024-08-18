@@ -19,6 +19,7 @@ export async function deleteActivity(app: FastifyInstance){
                     id: activityId
                 }
             });
+            
             return "Activity delete succesfully.";
         } catch(error){
             return error;
