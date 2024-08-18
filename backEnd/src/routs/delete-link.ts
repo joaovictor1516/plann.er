@@ -13,10 +13,6 @@ export async function deleteLink(app: FastifyInstance){
     }, async (request) => {
         const linkId = request.params.linkId;
 
-        if(!linkId){
-            return "Link not found";
-        }
-
         try {
             await prisma.link.delete({
                 where: {
