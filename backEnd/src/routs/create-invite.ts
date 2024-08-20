@@ -4,7 +4,7 @@ import { prisma } from "../lib/prisma";
 import { z } from "zod";
 
 export async function createInvite(app: FastifyInstance){
-    app.withTypeProvider<ZodTypeProvider>().post("/trips/:tripId/create-invite", {
+    app.withTypeProvider<ZodTypeProvider>().post("/trips/:tripId/invite", {
         schema: {
             params: z.object({
                 tripId: z.string().uuid()
