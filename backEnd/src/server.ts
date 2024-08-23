@@ -14,6 +14,7 @@ import { updateTrips } from "./routs/update-trips";
 import { createTrip } from "./routs/create-trip";
 import { createLink } from "./routs/create-link";
 import { deleteLink } from "./routs/delete-link";
+import { handleError } from "./lib/handleError";
 import { getLinks } from "./routs/get-links";
 import cors from "@fastify/cors";
 import fastify from "fastify";
@@ -26,6 +27,8 @@ app.register(cors, {
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
+
+app.setErrorHandler(handleError);
 
 app.register(getLinks);
 app.register(deleteLink);
