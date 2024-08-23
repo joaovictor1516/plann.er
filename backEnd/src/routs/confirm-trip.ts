@@ -80,6 +80,6 @@ export async function confirmTrip(app: FastifyInstance){
                 })
             );
             
-        return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+        return reply.code(300).redirect(`http://localhost:3030/trips/${tripId}`);
     });
 }

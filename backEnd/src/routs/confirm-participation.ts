@@ -35,6 +35,6 @@ export async function confirmParticipation(app: FastifyInstance){
             }
         });
 
-        return reply.redirect(`http://localhost:3030/trips/${participant?.trip_id}`);
+        return reply.code(300).redirect(`http://localhost:3030/trips/${participant?.trip_id}`);
     })
 }
