@@ -33,7 +33,7 @@ export async function confirmTrip(app: FastifyInstance){
         });
 
         if(!trip){
-            throw new BadRequest("Trip not find");
+            throw new BadRequest("Trip not found");
         } else if(trip.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
         }
