@@ -2,9 +2,9 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { getMailClient } from "../lib/mail";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { dayjs } from "../lib/dayjs";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import { dayjs } from "../lib/dayjs";
 
 export async function createInvite(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().post("/trips/:tripId/invite", {
@@ -78,7 +78,7 @@ export async function createInvite(app: FastifyInstance){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
 
         } catch(error){
-            return error;
+            ;
         }
     });
 }

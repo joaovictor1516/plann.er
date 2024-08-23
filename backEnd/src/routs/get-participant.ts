@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
@@ -10,7 +11,7 @@ export async function getParticipant(app: FastifyInstance){
                 participantId: z.string().uuid()
             })
         }
-    }, async (request) => {
+    }, async (request, reply) => {
         const participantId = request.params.participantId;
 
         const participant = await prisma.participant.findUnique({
@@ -26,9 +27,9 @@ export async function getParticipant(app: FastifyInstance){
         }) ;
 
         if(!participant){
-            return "The participant not found.";
+            throw new BadRequest("The participant not found.");
         }
 
-        return {participant};
+        return reply.code(200).send({participant});
     });
 }

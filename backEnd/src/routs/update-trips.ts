@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { dayjs } from "../lib/dayjs";
@@ -16,7 +17,7 @@ export async function updateTrips(app: FastifyInstance){
                 ends_at: z.coerce.date()
             })
         }
-    }, async (request) => {
+    }, async (request, reply) => {
         const tripId = request.params.tripId;
         const {destination, starts_at, ends_at} = request.body;
 
@@ -36,9 +37,9 @@ export async function updateTrips(app: FastifyInstance){
                 }
             });
 
-            return "trip updated successfully";
+            return reply.code(200).send("trip updated successfully");
         } catch(error){
-            return error;
+            throw new BadRequest(`${error}`);
         }
     });
 }

@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
@@ -14,7 +15,7 @@ export async function updateActivity(app: FastifyInstance){
                 occurs_at: z.coerce.date()
             })
         }
-    }, async (request) => {
+    }, async (request, reply) => {
         const activityId = request.params.activityId;
         const {title, occurs_at} = request.body;
 
@@ -29,9 +30,9 @@ export async function updateActivity(app: FastifyInstance){
                 }
             });
 
-            return "Activity updated successfully";
+            return reply.code(200).send("Activity updated successfully");
         } catch(error) {
-            return error;
+            throw new BadRequest(`${error}`);
         }
     });
 }

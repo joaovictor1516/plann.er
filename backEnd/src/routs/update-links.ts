@@ -1,5 +1,6 @@
-import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
+import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
 
@@ -14,7 +15,7 @@ export async function updateLinks(app: FastifyInstance){
                 url: z.string().url()
             })
         }
-    }, async (request) => {
+    }, async (request, reply) => {
         const linkId = request.params.linkId;
         const {title, url} = request.body;
 
@@ -29,9 +30,9 @@ export async function updateLinks(app: FastifyInstance){
                 }
             });
 
-            return "Link uptadet successfully.";
+            return reply.status(200).send("Link uptadet successfully.");
         } catch(error){
-            return error;
+            throw new BadRequest(`${error}`);
         }
     });
 }

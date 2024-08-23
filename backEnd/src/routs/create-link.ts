@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
@@ -25,7 +26,7 @@ export async function createLink(app: FastifyInstance) {
         });
 
         if(!trip){
-            throw new Error("Trip not found");
+            throw new BadRequest("Trip not found");
         } else
         if(!trip.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
@@ -39,6 +40,6 @@ export async function createLink(app: FastifyInstance) {
             }
         });
 
-        return {linkId: link.id};
+        return reply.code(200).send({linkId: link.id});
     })
 }

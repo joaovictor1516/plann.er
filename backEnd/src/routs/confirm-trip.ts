@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { getMailClient } from "../lib/mail";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
@@ -32,7 +33,7 @@ export async function confirmTrip(app: FastifyInstance){
         });
 
         if(!trip){
-            throw new Error("Trip not find");
+            throw new BadRequest("Trip not find");
         } else if(trip.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
         }

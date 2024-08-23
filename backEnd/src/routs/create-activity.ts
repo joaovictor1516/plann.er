@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { dayjs } from "../lib/dayjs";
@@ -27,13 +28,13 @@ export async function createActivity(app: FastifyInstance){
         });
 
         if(!trip){
-            throw new Error("Trip not found");
+            throw new BadRequest("Trip not found");
         } else
         if(!trip.is_confirmed){
             return reply.redirect(`http://localhost:3030/trips/${tripId}`);
         } else
         if(dayjs(occurs_at).isBefore(trip.starts_at) || dayjs(occurs_at).isAfter(trip.ends_at)){
-            throw new Error("Invalit activity date");
+            throw new BadRequest("Invalit activity date");
         }
 
         const activity = await prisma.activity.create({
@@ -44,6 +45,6 @@ export async function createActivity(app: FastifyInstance){
             }
         });
 
-        return {activityId: activity.id};
+        return reply.code(200).send({activityId: activity.id});
     });
 }

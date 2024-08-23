@@ -1,4 +1,5 @@
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
@@ -10,7 +11,7 @@ export async function deleteLink(app: FastifyInstance){
                 linkId: z.string().uuid()
             })
         }
-    }, async (request) => {
+    }, async (request, reply) => {
         const linkId = request.params.linkId;
 
         try {
@@ -20,9 +21,9 @@ export async function deleteLink(app: FastifyInstance){
                 }
             });
             
-            return "Link deleted successfully.";
+            return reply.code(200).send("Link deleted successfully.");
         } catch(error) {
-            return error;
+            throw new BadRequest(`${error}`);
         }
     });
 }
