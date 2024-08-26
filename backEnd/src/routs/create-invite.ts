@@ -13,7 +13,7 @@ export async function createInvite(app: FastifyInstance){
                 tripId: z.string().uuid()
             }),
             body: z.object({
-                name: z.string().min(4, "O nome deve ter no minimo quatro letras"),
+                name: z.string().min(4),
                 email: z.string().email()
             })
         }
