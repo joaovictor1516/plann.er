@@ -27,6 +27,6 @@ export async function getTripDetails(app: FastifyInstance){
             return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         }
 
-        return reply.send(200).send({trip});
+        return reply.status(200).send({trip});
     });
 }
