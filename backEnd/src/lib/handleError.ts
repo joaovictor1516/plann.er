@@ -4,7 +4,7 @@ import { FastifyInstance } from "fastify";
 
 type FastifyErrorHandler = FastifyInstance["errorHandler"];
 
-export const handleError:FastifyErrorHandler = (error, request, reply) => {
+export const handleError:FastifyErrorHandler = async (error, request, reply) => {
     if(error instanceof BadRequest){
         return reply.code(400).send({
             message: error.message
