@@ -16,13 +16,14 @@ import { createLink } from "./routs/create-link";
 import { deleteLink } from "./routs/delete-link";
 import { handleError } from "./lib/handleError";
 import { getLinks } from "./routs/get-links";
+import { env } from "./lib/envSchema";
 import cors from "@fastify/cors";
 import fastify from "fastify";
 
 const app = fastify();
 
 app.register(cors, {
-    origin: "http://localhost:3030/"
+    origin: env.WEB_BASE_URL
 });
 
 app.setSerializerCompiler(serializerCompiler);
@@ -47,6 +48,6 @@ app.register(getParticipant);
 app.register(getParticipants);
 app.register(confirmParticipation);
 
-app.listen({port: 3333}).then(() => {
+app.listen({port: env.PORT}).then(() => {
     console.log("Server running");
 });

@@ -2,6 +2,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { dayjs } from "../lib/dayjs";
 import { z } from "zod";
 
@@ -32,7 +33,7 @@ export async function getActivities(app: FastifyInstance){
             throw new BadRequest("Trip not found");
         } else
         if(!trip.is_confirmed){
-            reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         }
 
         const differenceInDaysBetwenFirstTripDateAndLastTripDate = dayjs(trip.ends_at).diff(trip.starts_at, "days");

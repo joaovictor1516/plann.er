@@ -2,6 +2,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { getMailClient } from "../lib/mail";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { dayjs } from "../lib/dayjs";
 import nodemailer from "nodemailer";
 import { z } from "zod";
@@ -30,7 +31,7 @@ export async function createInvite(app: FastifyInstance){
         if(!trip){
             return "The trip not exist.";
         } else if(!trip.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         }
 
         try{
@@ -45,7 +46,7 @@ export async function createInvite(app: FastifyInstance){
                 const formatetStartDate = dayjs(trip.starts_at).format("LL");
                 const formatetEndDate = dayjs(trip.ends_at).format("LL");
                 
-                const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`;
+                const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`;
                 const mail = await getMailClient()
 
                 const menssage = await mail.sendMail({
@@ -75,7 +76,7 @@ export async function createInvite(app: FastifyInstance){
 
                 console.log(nodemailer.getTestMessageUrl(menssage));
             
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
 
         } catch(error){
             ;

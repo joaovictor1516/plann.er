@@ -2,6 +2,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { z } from "zod";
 
 export async function createLink(app: FastifyInstance) {
@@ -29,7 +30,7 @@ export async function createLink(app: FastifyInstance) {
             throw new BadRequest("Trip not found");
         } else
         if(!trip.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         }
 
         const link = await prisma.link.create({

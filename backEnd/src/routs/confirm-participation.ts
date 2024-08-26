@@ -2,6 +2,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { z } from "zod";
 
 export async function confirmParticipation(app: FastifyInstance){
@@ -23,7 +24,7 @@ export async function confirmParticipation(app: FastifyInstance){
         if(!participant){
             throw new BadRequest("Participant not founded.");
         }else if(participant.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${participant.trip_id}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${participant.trip_id}`);
         }
 
         await prisma.participant.update({
@@ -35,6 +36,6 @@ export async function confirmParticipation(app: FastifyInstance){
             }
         });
 
-        return reply.code(300).redirect(`http://localhost:3030/trips/${participant?.trip_id}`);
+        return reply.code(300).redirect(`${env.WEB_BASE_URL}/trips/${participant?.trip_id}`);
     })
 }

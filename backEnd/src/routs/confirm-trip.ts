@@ -3,6 +3,7 @@ import { BadRequest } from "../lib/clientError";
 import { getMailClient } from "../lib/mail";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { dayjs } from "../lib/dayjs";
 import nodemailer from "nodemailer";
 import { z } from "zod";
@@ -35,7 +36,7 @@ export async function confirmTrip(app: FastifyInstance){
         if(!trip){
             throw new BadRequest("Trip not found");
         } else if(trip.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         }
 
         await prisma.trip.update({
@@ -52,7 +53,7 @@ export async function confirmTrip(app: FastifyInstance){
 
             await Promise.all(    
                 trip.participants.map(async (participant: { id: string; email: string; }) => {
-                    const confirmationLink = `http://localhost:3333/participants/${participant.id}/confirm`;
+                    const confirmationLink = `${env.WEB_BASE_URL}/participants/${participant.id}/confirm`;
 
                     const menssage = await mail.sendMail({
                         from: {
@@ -80,6 +81,6 @@ export async function confirmTrip(app: FastifyInstance){
                 })
             );
             
-        return reply.code(300).redirect(`http://localhost:3030/trips/${tripId}`);
+        return reply.code(300).redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
     });
 }

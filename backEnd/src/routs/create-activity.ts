@@ -2,6 +2,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest } from "../lib/clientError";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { env } from "../lib/envSchema";
 import { dayjs } from "../lib/dayjs";
 import { z } from "zod";
 
@@ -31,7 +32,7 @@ export async function createActivity(app: FastifyInstance){
             throw new BadRequest("Trip not found");
         } else
         if(!trip.is_confirmed){
-            return reply.redirect(`http://localhost:3030/trips/${tripId}`);
+            return reply.redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
         } else
         if(dayjs(occurs_at).isBefore(trip.starts_at) || dayjs(occurs_at).isAfter(trip.ends_at)){
             throw new BadRequest("Invalit activity date");
