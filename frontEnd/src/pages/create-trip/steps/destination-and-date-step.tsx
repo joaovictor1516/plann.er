@@ -1,28 +1,23 @@
 import { MapPin, Calendar, Settings2, ArrowRight, X } from "lucide-react";
+import { DateRange, DayPicker} from "react-day-picker";
 import { Button } from "../../../components/button";
-import { ChangeEvent, useState } from "react";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
-import { ptBR } from "date-fns/locale"
+import { ChangeEvent } from "react";
+import { ptBR } from "date-fns/locale";
+import "react-day-picker/dist/style.css";
 
 interface DestinationAndDateType{
     isGuestsInputOpen: boolean;
+    isDateModalOpen: boolean;
+    startAndEndTravelDays: DateRange | undefined;
+    setStartAndEndTravelDays: React.Dispatch<React.SetStateAction<DateRange | undefined>>
     handleLocation: (element: ChangeEvent<HTMLInputElement>) => void;
-    handleDate: (element: ChangeEvent<HTMLInputElement>) => void;
     closeGuestInput: () => void;
     openGuestsInput: () => void;
+    openDateModal: () => void;
+    closeDateModal: () => void;
 }
 
 export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
-  const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false);
-
-  function openDateModal(){
-    return setIsDateModalOpen(true);
-  }
-
-  function closeDateModal(){
-    return setIsDateModalOpen(false);
-  }
 
   return(
     <div className="flex items-center justify-center bg-zinc-900 rounded-xl h-16 px-4 gap-3 shadow-shape">
@@ -37,7 +32,7 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
                 placeholder="Para onde você vai?"/>
         </div>
 
-        <button onClick={openDateModal} 
+        <button onClick={props.openDateModal} 
             disabled={props.isGuestsInputOpen} 
             className="flex items-center gap-2 text-left">              
           <Calendar className="size-5 text-zinc-400"/>
@@ -48,7 +43,7 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
           </span>
         </button>
 
-        {isDateModalOpen && (
+        {props.isDateModalOpen && (
           <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <div className="flex flex-col items-center bg-zinc-900 rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">
               <div className="flex flex-col justify-center w-full gap-2">
@@ -57,7 +52,7 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
                     Selecione as datas
                   </h2>
                   <button>
-                    <X className="size-5" onClick={closeDateModal}/>
+                    <X className="size-5" onClick={props.closeDateModal}/>
                   </button>
                 </div>
               </div>
@@ -65,6 +60,8 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
                   locale={ptBR}
                   mode="range"
                   showOutsideDays
+                  onSelect={props.setStartAndEndTravelDays}
+                  selected={props.startAndEndTravelDays}
                 />
             </div>
           </div>
