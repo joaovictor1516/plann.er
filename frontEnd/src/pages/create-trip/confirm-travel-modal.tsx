@@ -4,7 +4,8 @@ import { Button } from "../../components/button";
 
 interface ConfirmTravelModalType{
     locationInput: string;
-    dateInput: string;
+    endTravelDate: string | undefined;
+    startTravelDate: string | undefined;
     disconfirmTravel: () => void;
     createTrip: (event: FormEvent<HTMLFormElement>) => void;
 }
@@ -24,7 +25,7 @@ export function ConfirmTravelModal(props: Readonly<ConfirmTravelModalType>){
                 </div>
 
                 <p className="text-left text-sm">
-                Para concluir a criação da viagem para <span className="text-zinc-100 font-semibold"> {props.locationInput} </span> nas datas <span className="text-zinc-100 font-semibold"> {props.dateInput} </span> preencha seus dados abaixo:
+                Para concluir a criação da viagem para <span className="text-zinc-100 font-semibold"> {props.locationInput} </span> nas datas <span className="text-zinc-100 font-semibold"> {props.startTravelDate} até {props.endTravelDate}</span> preencha seus dados abaixo:
                 </p>
               </div>
               
