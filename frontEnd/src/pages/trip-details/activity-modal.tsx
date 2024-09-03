@@ -2,7 +2,8 @@ import { Plus, CircleCheck } from "lucide-react";
 import { Button } from "../../components/button";
 
 interface ActivityModalType{
-    openCreatyActivityModal: () => void
+    openCreatyActivityModal: () => void;
+    takeActivities: (id: string) => void;
 }
 
 export function ActivityModal(props: Readonly<ActivityModalType>){
