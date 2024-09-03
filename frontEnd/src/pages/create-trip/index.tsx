@@ -4,6 +4,8 @@ import { ConfirmTravelModal } from "./confirm-travel-modal";
 import { InviteGuestsModal } from "./invite-guests-modal";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DateRange } from "react-day-picker";
+import { api } from "../../lib/axios";
 import { toast } from "sonner";
 
 export function CreateTripPage(){
@@ -16,8 +18,40 @@ export function CreateTripPage(){
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
   
   const [locationInput, setLocationInput] = useState<string>("");
-  
-  const [dateInput, setDateInput] = useState<string>("");
+
+  const [ownerEmail, setOwnerEmail] = useState<string>("");
+
+  const [ownerName, setOwnerName] = useState<string>("");
+
+  const [startAndEndTravelDays, setStartAndEndTravelDays] = useState<DateRange | undefined>(undefined);
+
+  const [isDateModalOpen, setIsDateModalOpen] = useState<boolean>(false);
+
+  let startTravelDate: string | undefined = undefined;
+  let endTravelDate: string | undefined = undefined;
+
+  if(startAndEndTravelDays){
+    startTravelDate = startAndEndTravelDays.from?.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      month: "long",
+      year: "numeric",
+      day: "numeric",
+    });
+    endTravelDate = startAndEndTravelDays.to?.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      month: "long",
+      year: "numeric",
+      day: "numeric",
+    });
+  }
+
+  function openDateModal(){
+    return setIsDateModalOpen(true);
+  }
+
+  function closeDateModal(){
+    return setIsDateModalOpen(false);
+  }
   
   const navigate = useNavigate();
 
@@ -90,18 +124,36 @@ export function CreateTripPage(){
     }
   }
 
-  function handleDate(element: ChangeEvent<HTMLInputElement>){
-    const date = element.target.value;
-
-    if(date !== ""){
-      setDateInput(date);
-    }
-  }
-
   function createTrip(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
 
-    navigate("/trips/123");
+    const data = new FormData(event.currentTarget);
+
+    const email = data.get("emailInput")?.toString();
+    const name = data.get("nameUserInput")?.toString();
+
+    if(email){
+      setOwnerEmail(email);
+    }
+
+    if(name){
+      setOwnerName(name);
+    }
+
+    api.post(`/trips`, {
+      emails_to_invite: emailsToInvite,
+      owner_email: ownerEmail,
+      owner_name: ownerName,
+      starts_at: startAndEndTravelDays?.from,
+      ends_at: startAndEndTravelDays?.to,
+      destination: locationInput
+    })
+    .then((response) => {
+      navigate(`/trips/${response}`);
+    })
+    .catch((error) => {
+      return error;
+    });
   }
 
   return(
@@ -115,11 +167,15 @@ export function CreateTripPage(){
         <div className="space-y-4">
           <DestinationAndDateStep
             closeGuestInput={closeGuestInput}
-            handleDate={handleDate}
+            startAndEndTravelDays={startAndEndTravelDays}
+            setStartAndEndTravelDays={setStartAndEndTravelDays}
             handleLocation={handleLocation}
             isGuestsInputOpen={isGuestsInputOpen}
             openGuestsInput={openGuestsInput}
-          />
+            isDateModalOpen={isDateModalOpen}
+            closeDateModal={closeDateModal}
+            openDateModal={openDateModal}
+            />
         </div>
 
         {isGuestsInputOpen && (
@@ -142,9 +198,10 @@ export function CreateTripPage(){
         {isEndConfigTravel && (
           <ConfirmTravelModal
             locationInput={locationInput}
-            dateInput={dateInput}
             disconfirmTravel={disconfirmTravel}
             createTrip={createTrip}
+            startTravelDate={startTravelDate}
+            endTravelDate={endTravelDate}
           />
         )}
 
