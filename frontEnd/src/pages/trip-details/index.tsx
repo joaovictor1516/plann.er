@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "../../lib/axios";
 import { LinkModal } from "./link-modal";
 import { InviteModal } from "./invite-modal";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +42,16 @@ export function TripDetailsPage(){
         setIsConfirmeInvatedModalOpen(false);
     }
 
+    function tackeActivities(tripId: string){
+        api.get(`https://localhost:3333/trips/${tripId}/activities`)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+
     function changeDateTime(){
         navigate("/");
     }
@@ -54,6 +65,7 @@ export function TripDetailsPage(){
             <main className="flex gap-16 px-4">
                 <ActivityModal 
                     openCreatyActivityModal={openCreatyActivityModal}
+                    takeActivities={() => {tackeActivities("a698e129-04d4-48fd-a805-004be703ce60")}}
                 />
 
                 <div className="w-80 space-y-6">
