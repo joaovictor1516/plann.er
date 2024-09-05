@@ -8,6 +8,7 @@ import { LocaleDateModal } from "./locale-date-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
 import { CreateActiviteModal } from "./create-activite-modal";
 import { RegistrationLinkModal } from "./registration-link-modal";
+import { ActivityInformations, Activity } from "../../lib/interfaces";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -15,6 +16,8 @@ export function TripDetailsPage(){
     const [isLinkRegistrationModalOpen, setIsLinkRegistrationModalOpen] = useState<boolean>(false);
 
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
+
+    const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
 
     const navigate = useNavigate();
 
@@ -43,14 +46,52 @@ export function TripDetailsPage(){
     }
 
     function tackeActivities(tripId: string){
-        api.get(`https://localhost:3333/trips/${tripId}/activities`)
+        api.get(`http://localhost:3333/trips/${tripId}/activities`)
         .then((response) => {
-            console.log(response);
+            console.log(response.data.activities);
+
+            const activityElements: ActivityInformations[] = [];
+
+            response.data.activities.map((values: {date: string, activity: Activity[]}) => {
+                const activityDetails = values.activity;
+                console.log(activityDetails)
+
+                const activitiesOfTheDay: ActivityInformations = {
+                    activities: undefined,
+
+                    date: new Date(values.date).toLocaleDateString("pt-BR", {
+                            day: "numeric",
+                            month: "long"
+                        }),
+                    
+                    dateDayWeek: new Date(values.date).toLocaleDateString("pt-BR", {
+                            weekday: "long"
+                        })
+                }
+                const activity: Activity[] = [];
+                
+                if(activityDetails.length > 0){
+
+                    for(const i in activityDetails){
+                        activity.push(activityDetails[i]);
+                        console.log("teste" + activityDetails[i]);
+                    }
+
+                    activitiesOfTheDay.activities = activity;
+
+                    console.log(activityDetails[0]);
+                }
+
+                activityElements.push(activitiesOfTheDay);
+                setActivityInformations(activityElements);
+            })
         })
         .catch((error) => {
             console.error(error);
         })
     }
+
+    tackeActivities("a698e129-04d4-48fd-a805-004be703ce60")
 
     function changeDateTime(){
         navigate("/");
@@ -65,7 +106,7 @@ export function TripDetailsPage(){
             <main className="flex gap-16 px-4">
                 <ActivityModal 
                     openCreatyActivityModal={openCreatyActivityModal}
-                    takeActivities={() => {tackeActivities("a698e129-04d4-48fd-a805-004be703ce60")}}
+                    activityInformations={activityInformations}
                 />
 
                 <div className="w-80 space-y-6">
