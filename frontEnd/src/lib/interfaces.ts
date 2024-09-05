@@ -1,6 +1,5 @@
 export interface Activity{
     id: string | undefined;
-    hasActivity: boolean;
     time: string | undefined;
     title: string | undefined;
 }
