@@ -30,21 +30,24 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                             <span className="text-zinc-500 text-xs">{information.dateDayWeek}</span>
                         </div>
 
-                        {information.activities?.map((activity) => {
-                            return activity.hasActivity ? (
-                                <>
-                                    <div className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
-                                        <CircleCheck className="size-5 text-lime-300"/>
-                                        <span className="flex-1">{activity.title}</span>
-                                        <p className="text-zinc-400 text-sm">{activity.time}</p>
-                                    </div>
-                                </>
+                        {information.activities ? (
+                                information.activities.map((activity) => {
+                                    return (
+                                        <>
+                                            <div className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
+                                                <CircleCheck className="size-5 text-lime-300"/>
+                                                <span className="flex-1">{activity.title}</span>
+                                                <p className="text-zinc-400 text-sm">{activity.time}</p>
+                                            </div>
+                                        </>
+                                    )
+                                })
                             ) : (
                                 <div className="space-y-3">
                                     <p className="text-zinc-500 text-sm">Nenhuma atividade cadastrada nesta data.</p>
                                 </div> 
                             )
-                        })}
+                        }
                     </div>
                 )
             })}
