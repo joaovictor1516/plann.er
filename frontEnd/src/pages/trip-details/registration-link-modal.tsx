@@ -25,29 +25,29 @@ export function RegistrationLinkModal(props: Readonly<RegistrationLinkModalType>
                 </div>
                 
                 <form className="space-y-3 w-full">
-                <div className="flex flex-col items-center gap-2 w-full">
-                    <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
-                    <Tag className="size-5 text-zinc-400"/>
-                    <input type="text"
-                            name="nameLinkInput"
-                            id="nameLinkInput"
-                            className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
-                            placeholder="Título do link"/>
+                    <div className="flex flex-col items-center gap-2 w-full">
+                        <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
+                        <Tag className="size-5 text-zinc-400"/>
+                        <input type="text"
+                                name="nameLinkInput"
+                                id="nameLinkInput"
+                                className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
+                                placeholder="Título do link"/>
+                        </div>
+
+                        <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
+                        <Link2 className="size-5 text-zinc-400"/>
+                        <input type="text"
+                                name="urlInput"
+                                id="urlInput"
+                                className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
+                                placeholder="URL"/>
+                        </div>
                     </div>
 
-                    <div className="flex items-center gap-2 w-full bg-zinc-950 px-3 py-2 rounded-lg">
-                    <Link2 className="size-5 text-zinc-400"/>
-                    <input type="text"
-                            name="urlInput"
-                            id="urlInput"
-                            className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
-                            placeholder="URL"/>
-                    </div>
-                </div>
-
-                <Button colors="primary" size="full">
-                    Salvar link
-                </Button>
+                    <Button colors="primary" size="full">
+                        Salvar link
+                    </Button>
                 </form>
             </div>
         </div>
