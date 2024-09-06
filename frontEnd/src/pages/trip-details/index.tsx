@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ActivityModal } from "./activity-modal";
 import { LocaleDateModal } from "./locale-date-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
-import { CreateActiviteModal } from "./create-activite-modal";
+import { CreateActivityModal } from "./create-activite-modal";
 import { RegistrationLinkModal } from "./registration-link-modal";
 import { ActivityInformations, Activity } from "../../lib/interfaces";
 
@@ -88,6 +88,10 @@ export function TripDetailsPage(){
         })
     }
 
+    function CreateActivity(){
+
+    }
+
     useEffect(() => {
         tackeActivities("a698e129-04d4-48fd-a805-004be703ce60");
     }, []);
@@ -122,7 +126,7 @@ export function TripDetailsPage(){
             </main>
 
             { isCreatyActivityModalOpen && (
-                <CreateActiviteModal
+                <CreateActivityModal
                     closeCreatyActivityModal={closeCreatyActivityModal}
                 />
             )}

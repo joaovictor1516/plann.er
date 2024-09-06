@@ -1,11 +1,11 @@
 import { X, Tag, Calendar, Clock } from "lucide-react";
 import { Button } from "../../components/button";
 
-interface CreateAtiviteType{
+interface CreateAtivityType{
     closeCreatyActivityModal: () => void;
 }
 
-export function CreateActiviteModal(props: Readonly<CreateAtiviteType>){
+export function CreateActivityModal(props: Readonly<CreateAtivityType>){
     return(
             <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
                 <div className="flex flex-col items-center bg-zinc-900 w-[540px] rounded-xl text-zinc-400 px-6 py-5 shadow-shape">
