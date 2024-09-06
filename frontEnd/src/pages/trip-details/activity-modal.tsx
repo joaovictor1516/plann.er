@@ -22,9 +22,9 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
         </div>
             
         <div className="space-y-8">
-            {props.activityInformations?.map((information) => {
+            {props.activityInformations?.map((information, index) => {
                 return (
-                    <div className="space-y-3">
+                    <div key={index} className="space-y-3">
                         <div className="flex gap-2 items-baseline">
                             <span className="text-zinc-300 text-xl font-semibold">{information.date}</span>
                             <span className="text-zinc-500 text-xs">{information.dateDayWeek}</span>
@@ -34,7 +34,7 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                 information.activities.map((activity) => {
                                     return (
                                         <>
-                                            <div className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
+                                            <div key={activity.id} className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
                                                 <CircleCheck className="size-5 text-lime-300"/>
                                                 <span className="flex-1">{activity.title}</span>
                                                 <p className="text-zinc-400 text-sm">{activity.time}</p>

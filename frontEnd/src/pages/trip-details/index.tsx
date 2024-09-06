@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 import { LinkModal } from "./link-modal";
 import { InviteModal } from "./invite-modal";
@@ -54,7 +54,6 @@ export function TripDetailsPage(){
 
             response.data.activities.map((values: {date: string, activity: Activity[]}) => {
                 const activityDetails = values.activity;
-                console.log(activityDetails)
 
                 const activitiesOfTheDay: ActivityInformations = {
                     activities: undefined,
@@ -78,8 +77,6 @@ export function TripDetailsPage(){
                     }
 
                     activitiesOfTheDay.activities = activity;
-
-                    console.log(activityDetails[0]);
                 }
 
                 activityElements.push(activitiesOfTheDay);
@@ -91,7 +88,9 @@ export function TripDetailsPage(){
         })
     }
 
-    tackeActivities("a698e129-04d4-48fd-a805-004be703ce60")
+    useEffect(() => {
+        tackeActivities("a698e129-04d4-48fd-a805-004be703ce60");
+    }, []);
 
     function changeDateTime(){
         navigate("/");
