@@ -37,7 +37,7 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                             <div key={activity.id} className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
                                                 <CircleCheck className="size-5 text-lime-300"/>
                                                 <span className="flex-1">{activity.title}</span>
-                                                <p className="text-zinc-400 text-sm">{activity.time}</p>
+                                                <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
                                             </div>
                                         </>
                                     )
