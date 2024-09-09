@@ -1,7 +1,7 @@
 export interface Activity{
-    id: string | undefined;
-    time: string | undefined;
-    title: string | undefined;
+    id: string;
+    occurs_at: string;
+    title: string;
 }
 
 export interface ActivityInformations{
