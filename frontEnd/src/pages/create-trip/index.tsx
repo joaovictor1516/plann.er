@@ -152,7 +152,8 @@ export function CreateTripPage(){
       navigate(`/trips/${response}`);
     })
     .catch((error) => {
-      return error;
+      console.error(error);
+      return;
     });
   }
 
