@@ -1,8 +1,10 @@
-import { X, Tag, Calendar, Clock } from "lucide-react";
+import { X, Tag, Calendar } from "lucide-react";
 import { Button } from "../../components/button";
+import { FormEvent } from "react";
 
 interface CreateAtivityType{
     closeCreatyActivityModal: () => void;
+    createActivity: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 export function CreateActivityModal(props: Readonly<CreateAtivityType>){
@@ -26,15 +28,15 @@ export function CreateActivityModal(props: Readonly<CreateAtivityType>){
                             </p>
                         </div>
                     
-                        <form className="space-y-3 w-full">
+                        <form onSubmit={props.createActivity} className="space-y-3 w-full">
                             <div className="flex flex-col items-center gap-2 w-full">
                                 
                                 <div className="flex items-center gap-2 w-full h-14 bg-zinc-950 px-3 py-2 rounded-lg">
                                     <Tag className="size-5 text-zinc-400"/>
                                 
                                     <input type="text"
-                                        name="nameUserInput"
-                                        id="nameUserInput"
+                                        name="titleInput"
+                                        id="titleInput"
                                         className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
                                         placeholder="Qual a atividade?"/>
                                 </div>
@@ -43,26 +45,16 @@ export function CreateActivityModal(props: Readonly<CreateAtivityType>){
                                     <div className="bg-zinc-950 flex flex-1 items-center h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                         <Calendar className="size-5 text-zinc-400"/>
 
-                                        <input type="date"
-                                            name="dateInput"
-                                            id="dateInput"
+                                        <input type="datetime-local"
+                                            name="occursAtInput"
+                                            id="occursAtInput"
                                             className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
                                             placeholder="Data"/>
-                                    </div>
-
-                                    <div className="bg-zinc-950 flex items-center w-[140px] h-14 py-4 px-2.5 gap-2.5 rounded-lg">
-                                        <Clock className="size-5 text-zinc-400 shrink-0"/>
-
-                                        <input type="time"
-                                            name="clockInput"
-                                            id="clockInput"
-                                            className="bg-transparent placeholder-zinc-400 text-lg outline-none text-zinc-100"
-                                            placeholder="Horário"/>
                                     </div>
                                 </div>
                             </div>
             
-                            <Button colors="primary" size="full">
+                            <Button type="submit" colors="primary" size="full">
                                 Salvar atividade
                             </Button>
                         </form>
