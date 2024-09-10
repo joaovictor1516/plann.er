@@ -4,6 +4,7 @@ import { ActivityInformations } from "../../lib/interfaces";
 
 interface ActivityModalType{
     openCreatyActivityModal: () => void;
+    deleteActivity: (activityId: string) => void;
     activityInformations: ActivityInformations[];
 }
 
@@ -38,6 +39,7 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                                 <CircleCheck className="size-5 text-lime-300"/>
                                                 <span className="flex-1">{activity.title}</span>
                                                 <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
+                                                <button type="button" onClick={() => props.deleteActivity(activity.id)}>Deletar</button>
                                             </div>
                                         </>
                                     )
