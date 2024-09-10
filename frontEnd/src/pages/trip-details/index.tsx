@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import { api } from "../../lib/axios";
-import { LinkModal } from "./link-modal";
-import { InviteModal } from "./invite-modal";
-import { useNavigate } from "react-router-dom";
-import { ActivityModal } from "./activity-modal";
-import { LocaleDateModal } from "./locale-date-modal";
-import { ConfirmInviteModal } from "./confirm-invite-modal";
-import { CreateActivityModal } from "./create-activite-modal";
-import { RegistrationLinkModal } from "./registration-link-modal";
 import { ActivityInformations, Activity } from "../../lib/interfaces";
+import { RegistrationLinkModal } from "./registration-link-modal";
+import { CreateActivityModal } from "./create-activite-modal";
+import { ConfirmInviteModal } from "./confirm-invite-modal";
+import { FormEvent, useEffect, useState } from "react";
+import { LocaleDateModal } from "./locale-date-modal";
+import { ActivityModal } from "./activity-modal";
+import { useNavigate } from "react-router-dom";
+import { InviteModal } from "./invite-modal";
+import { LinkModal } from "./link-modal";
+import { api } from "../../lib/axios";
+import { format } from "date-fns";
+import { toast } from "sonner";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -46,10 +48,8 @@ export function TripDetailsPage(){
     }
 
     function tackeActivities(tripId: string){
-        api.get(`http://localhost:3333/trips/${tripId}/activities`)
+        api.get(`/trips/${tripId}/activities`)
         .then((response) => {
-            console.log(response.data.activities);
-
             const activityElements: ActivityInformations[] = [];
 
             response.data.activities.map((values: {date: string, activity: Activity[]}) => {
@@ -72,8 +72,8 @@ export function TripDetailsPage(){
                 if(activityDetails.length > 0){
 
                     for(const i in activityDetails){
+                        activityDetails[i].occurs_at = format((new Date(activityDetails[i].occurs_at)), "HH:mm");
                         activity.push(activityDetails[i]);
-                        console.log("teste" + activityDetails[i]);
                     }
 
                     activitiesOfTheDay.activities = activity;
@@ -88,8 +88,33 @@ export function TripDetailsPage(){
         })
     }
 
-    function CreateActivity(){
+    async function createActivity(event: FormEvent<HTMLFormElement>){
+        event.preventDefault();
 
+        const data = new FormData(event.currentTarget);
+
+        const occurs_at = data.get("occursAtInput")?.toString();
+
+        const title = data.get("titleInput")?.toString();
+
+        await api.post("/trips/a698e129-04d4-48fd-a805-004be703ce60/activities", {
+            title,
+            occurs_at
+        })
+        .then((response) => {
+            toast.success("Tarefa criada com sucesso.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.log(response);
+        })
+        .catch((error) => {
+            toast.error("Falha na criação da tarefa.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.error(error);
+        })
     }
 
     useEffect(() => {
@@ -128,6 +153,7 @@ export function TripDetailsPage(){
             { isCreatyActivityModalOpen && (
                 <CreateActivityModal
                     closeCreatyActivityModal={closeCreatyActivityModal}
+                    createActivity={createActivity}
                 />
             )}
 
