@@ -1,4 +1,4 @@
-import { Plus, CircleCheck } from "lucide-react";
+import { Plus, CircleCheck, Trash } from "lucide-react";
 import { Button } from "../../components/button";
 import { ActivityInformations } from "../../lib/interfaces";
 
@@ -34,14 +34,15 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                         {information.activities ? (
                                 information.activities.map((activity) => {
                                     return (
-                                        <>
-                                            <div key={activity.id} className="flex justify-between items-center gap-3 h-10 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
-                                                <CircleCheck className="size-5 text-lime-300"/>
-                                                <span className="flex-1">{activity.title}</span>
-                                                <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
-                                                <button type="button" onClick={() => props.deleteActivity(activity.id)}>Deletar</button>
-                                            </div>
-                                        </>
+                                        <div key={activity.id} className="flex justify-between items-center gap-3 h-12 px-4 rounded-xl bg-zinc-900 text-zinc-100 shadow-shape">
+                                            <CircleCheck className="size-5 text-lime-300"/>
+                                            <span className="flex-1">{activity.title}</span>
+                                            <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
+                                            <Button colors="primary" size="default" onClick={() => props.deleteActivity(activity.id)}>
+                                                <Trash className="size-5"/>
+                                                Deletar
+                                            </Button>
+                                        </div>
                                     )
                                 })
                             ) : (
