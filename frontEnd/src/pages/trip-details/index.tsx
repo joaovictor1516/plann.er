@@ -2,10 +2,10 @@ import { ActivityInformations, Activity, Link } from "../../lib/interfaces";
 import { RegistrationLinkModal } from "./registration-link-modal";
 import { CreateActivityModal } from "./create-activite-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormEvent, useEffect, useState } from "react";
 import { LocaleDateModal } from "./locale-date-modal";
 import { ActivityModal } from "./activity-modal";
-import { useNavigate } from "react-router-dom";
 import { InviteModal } from "./invite-modal";
 import { LinkModal } from "./link-modal";
 import { api } from "../../lib/axios";
@@ -21,9 +21,11 @@ export function TripDetailsPage(){
 
     const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
 
-    const [links, setLinks] = useState<Link[]>([])
+    const [links, setLinks] = useState<Link[]>([]);
 
     const navigate = useNavigate();
+
+    const {tripId} = useParams();
 
     function openCreatyActivityModal(){
         setIsCreatyActivityModalOpen(true);
@@ -99,7 +101,7 @@ export function TripDetailsPage(){
 
         const title = data.get("titleInput")?.toString();
 
-        await api.post("/trips/a698e129-04d4-48fd-a805-004be703ce60/activities", {
+        await api.post(`/trips/${tripId}/activities`, {
             title,
             occurs_at
         })
@@ -143,11 +145,42 @@ export function TripDetailsPage(){
             console.error(error);
         })
     }
-    
+
+    async function createLink(event: FormEvent<HTMLFormElement>){
+        event.preventDefault();
+
+        const data = new FormData(event.currentTarget);
+
+        const title = data.get("titleInput");
+
+        const url = data.get("urlInput");
+
+        await api.post(`/trips/${tripId}/links`, {
+            title,
+            url
+        })
+        .then((response) => {
+            toast.success("Link criado com sucesso.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.log(response);
+        })
+        .catch((error) => {
+            toast.error("Falha na acriação do link.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.error(error);
+        })
+    }
+
     useEffect(() => {
-        tackeActivities("a698e129-04d4-48fd-a805-004be703ce60");
-        tackeLinks("a698e129-04d4-48fd-a805-004be703ce60");
-    }, []);
+        if(tripId){
+            tackeActivities(tripId);
+            tackeLinks(tripId);
+        }
+    }, [tripId]);
 
     function changeDateTime(){
         navigate("/");
@@ -190,6 +223,7 @@ export function TripDetailsPage(){
             { isLinkRegistrationModalOpen && (
                 <RegistrationLinkModal
                   closeLinkRegistrationModal={closeLinkRegistrationModal}
+                  createLink={createLink}
                 />
             )}
 
