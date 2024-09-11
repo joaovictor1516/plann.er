@@ -1,4 +1,4 @@
-import { ActivityInformations, Activity } from "../../lib/interfaces";
+import { ActivityInformations, Activity, Link } from "../../lib/interfaces";
 import { RegistrationLinkModal } from "./registration-link-modal";
 import { CreateActivityModal } from "./create-activite-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
@@ -20,6 +20,8 @@ export function TripDetailsPage(){
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
 
     const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
+
+    const [links, setLinks] = useState<Link[]>([])
 
     const navigate = useNavigate();
 
@@ -47,8 +49,8 @@ export function TripDetailsPage(){
         setIsConfirmeInvatedModalOpen(false);
     }
 
-    function tackeActivities(tripId: string){
-        api.get(`/trips/${tripId}/activities`)
+    async function tackeActivities(tripId: string){
+        await api.get(`/trips/${tripId}/activities`)
         .then((response) => {
             const activityElements: ActivityInformations[] = [];
 
@@ -117,8 +119,34 @@ export function TripDetailsPage(){
         })
     }
 
+    async function deleteActivity(activityId: string){
+        await api.delete(`/activities/${activityId}/delete`)
+        .then((response) => {
+            console.log(response);
+            toast.message("Tarefa deletada com sucesso.", {
+                duration: 5000,
+                closeButton: true
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+
+    async function tackeLinks(tripId: string){
+        await api.get(`/trips/${tripId}/links`)
+        .then((response) => {
+            const links = response.data.links;
+            setLinks(links);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+    
     useEffect(() => {
         tackeActivities("a698e129-04d4-48fd-a805-004be703ce60");
+        tackeLinks("a698e129-04d4-48fd-a805-004be703ce60");
     }, []);
 
     function changeDateTime(){
@@ -135,11 +163,13 @@ export function TripDetailsPage(){
                 <ActivityModal 
                     openCreatyActivityModal={openCreatyActivityModal}
                     activityInformations={activityInformations}
+                    deleteActivity={deleteActivity}
                 />
 
                 <div className="w-80 space-y-6">
                     <LinkModal
                         openLinkRegistrationModal={openLinkRegistrationModal}
+                        links={links}
                     />
 
                     <div className="w-full h-px bg-zinc-800"/>
