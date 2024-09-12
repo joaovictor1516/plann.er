@@ -39,10 +39,7 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                             {activity.is_complited ? (
                                                 <CircleCheck className="size-5 text-lime-300"/>
                                             ) : (
-                                                <div>
                                                 <CircleDashed className="size-5 text-zinc-400"/>
-                                                <p>{activity.is_complited}</p>
-                                                </div>
                                             )}
                                             <span className="flex-1">{activity.title}</span>
                                             <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
