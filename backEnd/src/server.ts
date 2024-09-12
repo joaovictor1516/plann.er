@@ -1,5 +1,6 @@
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import { confirmParticipation } from "./routs/confirm-participation";
+import { completeActivity } from "./routs/complete-activity";
 import { getParticipants } from "./routs/get-participants";
 import { updateActivity } from "./routs/update-activities";
 import { getTripDetails } from "./routs/get-trip-details";
@@ -46,6 +47,7 @@ app.register(updateActivity);
 app.register(getTripDetails);
 app.register(getParticipant);
 app.register(getParticipants);
+app.register(completeActivity);
 app.register(confirmParticipation);
 
 app.listen({port: env.PORT}).then(() => {
