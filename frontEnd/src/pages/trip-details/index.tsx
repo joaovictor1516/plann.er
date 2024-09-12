@@ -132,6 +132,20 @@ export function TripDetailsPage(){
         })
         .catch((error) => {
             console.error(error);
+            toast.error("Falha ao deletar a atividade.", {
+                duration: 5000,
+                closeButton: true
+            });
+        })
+    }
+
+    async function compleateActivity(activityId: string){
+        await api.get(`/activities/${activityId}/complete`)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.error(error);
         })
     }
 
@@ -196,6 +210,7 @@ export function TripDetailsPage(){
                 <ActivityModal 
                     openCreatyActivityModal={openCreatyActivityModal}
                     activityInformations={activityInformations}
+                    completeActivity={compleateActivity}
                     deleteActivity={deleteActivity}
                 />
 
