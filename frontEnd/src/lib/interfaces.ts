@@ -2,7 +2,7 @@ export interface Activity{
     id: string;
     occurs_at: string;
     title: string;
-    is_completed: boolean;   
+    is_complited: boolean;   
 }
 
 export interface ActivityInformations{
