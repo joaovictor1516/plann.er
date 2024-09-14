@@ -189,6 +189,24 @@ export function TripDetailsPage(){
         })
     }
 
+    async function deleteLink(linkId: string){
+        await api.delete(`/links/${linkId}/delete`)
+        .then((response) => {
+            toast.message("Link deletado com sucesso.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.log(response);
+        })
+        .catch((error) => {
+            toast.error("Erro ao deletar o link.", {
+                duration: 5000,
+                closeButton: true
+            });
+            console.error(error);
+        })
+    }
+
     useEffect(() => {
         if(tripId){
             tackeActivities(tripId);
@@ -217,6 +235,7 @@ export function TripDetailsPage(){
                 <div className="w-80 space-y-6">
                     <LinkModal
                         openLinkRegistrationModal={openLinkRegistrationModal}
+                        deleteLink={deleteLink}
                         links={links}
                     />
 
