@@ -41,11 +41,20 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                             ) : (
                                                 <CircleDashed className="size-5 text-zinc-400"/>
                                             )}
+
                                             <span className="flex-1">{activity.title}</span>
                                             <p className="text-zinc-400 text-sm">{activity.occurs_at}</p>
-                                            <Button colors="primary" size="default" onClick={() => props.completeActivity(activity.id)}>
+
+                                            {activity.is_complited ? (
+                                                <Button colors="secundary" size="default">
                                                 Completar tarefa
-                                            </Button>
+                                                </Button>
+                                            ) : (
+                                                <Button colors="primary" size="default" onClick={() => props.completeActivity(activity.id)}>
+                                                Completar tarefa
+                                                </Button>
+                                            )}
+
                                             <Button colors="primary" size="default" onClick={() => props.deleteActivity(activity.id)}>
                                                 <Trash className="size-5"/>
                                                 Deletar
