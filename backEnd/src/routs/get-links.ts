@@ -33,6 +33,7 @@ export async function getLinks(app: FastifyInstance){
 
         const links = trip.links.map((link) => {
             return {
+                id: link.id,
                 title: link.title,
                 url: link.url
             }
