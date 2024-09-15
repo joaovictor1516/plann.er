@@ -16,3 +16,11 @@ export interface Link{
     title: string;
     url: string; 
 }
+
+export interface Invite{
+    id: string,
+    email: string;
+    name: string | undefined;
+    is_owner: boolean;
+    is_confirmed: boolean;
+}
