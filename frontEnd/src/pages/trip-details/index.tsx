@@ -1,4 +1,4 @@
-import { ActivityInformations, Activity, Link } from "../../lib/interfaces";
+import { ActivityInformations, Activity, Link, Invite } from "../../lib/interfaces";
 import { RegistrationLinkModal } from "./registration-link-modal";
 import { CreateActivityModal } from "./create-activite-modal";
 import { ConfirmInviteModal } from "./confirm-invite-modal";
@@ -20,6 +20,8 @@ export function TripDetailsPage(){
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
 
     const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
+
+    const [invites, setInvites] = useState<Invite[]>([]);
 
     const [links, setLinks] = useState<Link[]>([]);
 
@@ -207,9 +209,21 @@ export function TripDetailsPage(){
         })
     }
 
+    async function tackInvites(tripId: string){
+        await api.get(`/trips/${tripId}/invite`)
+        .then((response) => {
+            console.log(response);
+            setInvites(response.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+
     useEffect(() => {
         if(tripId){
             tackeActivities(tripId);
+            tackInvites(tripId);
             tackeLinks(tripId);
         }
     }, [tripId]);
@@ -243,6 +257,7 @@ export function TripDetailsPage(){
 
                     <InviteModal
                       openConfirmeInviteModal={openConfirmeInviteModal}
+                      invites={invites}
                     />
                 </div>
             </main>
