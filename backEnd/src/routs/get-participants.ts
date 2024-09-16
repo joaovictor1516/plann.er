@@ -33,8 +33,10 @@ export async function getParticipants(app: FastifyInstance){
 
         const participants = trip.participants.map((participant) => {
             return {
+                id: participant.id,
                 name: participant.name,
                 email: participant.email,
+                owner: participant.is_owner,
                 confirmed: participant.is_confirmed
             }
         });
