@@ -10,7 +10,7 @@ interface InviteModalType{
 export function InviteModal(props: Readonly<InviteModalType>){
     return(
         <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Convidados</h2>
+            <h2 className="text-xl font-semibold">Participantes</h2>
             
             <div className="space-y-5">
                 
@@ -23,6 +23,16 @@ export function InviteModal(props: Readonly<InviteModalType>){
                                 <CircleCheck className="size-5 ml-auto mr-0 text-lime-300"/>
                                 ) : (
                                 <CircleDashed className="size-5 ml-auto mr-0"/>
+                            )}
+
+                            {invite.is_owner ? (
+                                <p className="bg-lime-300 p-1 rounded">
+                                    Criador da viagem
+                                </p>
+                                ) : (
+                                <p className="bg-lime-300 p-1 rounded">
+                                    Convidado
+                                </p>
                             )}
                             
                             <p className="w-60 h-[17px] truncate text-xs">
