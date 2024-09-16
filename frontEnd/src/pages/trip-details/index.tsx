@@ -210,10 +210,9 @@ export function TripDetailsPage(){
     }
 
     async function tackInvites(tripId: string){
-        await api.get(`/trips/${tripId}/invite`)
+        await api.get(`/trips/${tripId}/participants`)
         .then((response) => {
-            console.log(response);
-            setInvites(response.data);
+            setInvites(response.data.participants);
         })
         .catch((error) => {
             console.error(error);
