@@ -17,6 +17,15 @@ export interface Link{
     url: string; 
 }
 
+export interface Trip{
+    id: string;
+    destination: string;
+    starts_at: Date;
+    ends_at: Date;
+    create_at: boolean;
+    is_confirmed: boolean;
+}
+
 export interface Invite{
     id: string,
     email: string;
