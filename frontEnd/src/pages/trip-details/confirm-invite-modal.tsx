@@ -1,10 +1,34 @@
 import { X, User, Mail } from "lucide-react";
+import { useParams } from "react-router-dom";
+import { Trip } from "../../lib/interfaces";
+import { useEffect, useState } from "react";
+import { api } from "../../lib/axios";
 
 interface ConfirmInviteModalType{
     closeConfirmeInviteModal: () => void;
 }
 
 export function ConfirmInviteModal(props: Readonly<ConfirmInviteModalType>){
+    const [trip, setTrip] = useState<Trip>();
+    const {tripId} = useParams();
+
+    async function tackTripDetails(tripId: string){
+        await api.get(`/trips/${tripId}/details`)
+        .then((response) => {
+            console.log(response.data.trip);
+            setTrip(response.data.trip);
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
+
+    useEffect(() => {
+        if(tripId){
+          tackTripDetails(tripId);  
+        }
+    }, [tripId]);
+
     return(
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <div className="flex flex-col items-center bg-zinc-900 w-[540px] rounded-xl text-zinc-400 px-6 py-5 gap-5 shadow-shape">
@@ -19,10 +43,11 @@ export function ConfirmInviteModal(props: Readonly<ConfirmInviteModalType>){
                 </div>
 
                 <div className="space-y-3.5">
-                    <p className="text-left text-sm">
-                        Você foi convidado(a) para participar de uma viagem para <span className="text-zinc-100 font-semibold">Florianópolis, Brasil</span> nas datas de <span className="text-zinc-100 font-semibold">16 a 27 de Agosto de 2024</span>.
-                    </p>
-
+                    {trip && (
+                        <p className="text-left text-sm">
+                            Você foi convidado(a) para participar de uma viagem para <span className="text-zinc-100 font-semibold">{trip.destination}</span> nas datas de <span className="text-zinc-100 font-semibold">{trip.starts_at.toDateString()} a {trip.ends_at.toString()}</span>.
+                        </p>
+                    )}
                     <p className="text-left text-sm">
                         Para confirmar sua presença na viagem, preencha os dados abaixo:
                     </p>
