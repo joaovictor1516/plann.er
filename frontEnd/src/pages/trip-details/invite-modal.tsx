@@ -28,16 +28,6 @@ export function InviteModal(props: Readonly<InviteModalType>){
                                 ) : (
                                 <CircleDashed className="size-5 ml-auto mr-0"/>
                             )}
-
-                            {invite.is_owner ? (
-                                <p className="bg-lime-300 text-lime-950 p-1 rounded w-auto">
-                                    Criador da viagem
-                                </p>
-                                    ) : (
-                                <p className="bg-lime-300 text-lime-950 p-1 rounded">
-                                    Convidado
-                                </p>
-                            )}
                             
                             <p className="w-60 h-[17px] truncate text-xs">
                                 {invite.email}
