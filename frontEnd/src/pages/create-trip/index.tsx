@@ -149,11 +149,11 @@ export function CreateTripPage(){
       destination: locationInput
     })
     .then((response) => {
-      navigate(`/trips/${response}`);
+      navigate(`/trips/${response.data.tripId}`);
     })
     .catch((error) => {
       console.error(error);
-      return;
+      return error
     });
   }
 
