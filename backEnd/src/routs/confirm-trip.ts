@@ -81,6 +81,6 @@ export async function confirmTrip(app: FastifyInstance){
                 })
             );
             
-        return reply.code(300).redirect(`${env.WEB_BASE_URL}/trips/${tripId}`);
+        return reply.code(200).send({tripId});
     });
 }
