@@ -1,7 +1,8 @@
 import { Calendar, MapPin, Settings2 } from "lucide-react";
 import { Button } from "../../components/button";
+import { useParams } from "react-router-dom";
+import { useState , useEffect} from "react";
 import { api } from "../../lib/axios";
-import { useState } from "react";
 
 interface LocalDateModalType{
     changeDateTime: () => void;
@@ -11,6 +12,7 @@ export function LocaleDateModal(props: Readonly<LocalDateModalType>){
     const [destination, setDestination] = useState<string>("");
     const [startsAt, setStartsAt] = useState<string>("");
     const [endsAt, setEndsAt] = useState<string>("");
+    const {tripId} = useParams();
 
     const options: object = {
                 weekday: "long",
@@ -19,8 +21,8 @@ export function LocaleDateModal(props: Readonly<LocalDateModalType>){
                 day: "numeric"
             }
     
-    function tackeDastinationAndDate(tripId: string): void{
-        api.get(`http://localhost:3333/trips/${tripId}/details`)
+    async function tackeDestinationAndDate(tripId: string): Promise<void>{
+        await api.get(`http://localhost:3333/trips/${tripId}/details`)
         .then((response) => {
             const tripDetails = response.data.trip;
 
@@ -32,8 +34,12 @@ export function LocaleDateModal(props: Readonly<LocalDateModalType>){
             console.error(error);
         })
     }
-
-   tackeDastinationAndDate("a698e129-04d4-48fd-a805-004be703ce60");
+useEffect(() => {
+    if(tripId){
+        tackeDestinationAndDate(tripId);
+    }
+}, [tripId]);
+   
     return(
         <div className="space-x-4 bg-zinc-900">
             <div className="flex items-center justify-between bg-zinc-900 px-4 h-16 rounded-xl shadow-shape">
