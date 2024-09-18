@@ -34,6 +34,7 @@ export function LocaleDateModal(props: Readonly<LocalDateModalType>){
             console.error(error);
         })
     }
+    
 useEffect(() => {
     if(tripId){
         tackeDestinationAndDate(tripId);
