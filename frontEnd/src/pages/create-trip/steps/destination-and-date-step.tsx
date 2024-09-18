@@ -18,6 +18,16 @@ interface DestinationAndDateType{
 }
 
 export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
+  const startTravelDate = props.startAndEndTravelDays?.from?.toLocaleDateString("pt-BR", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
+  const  endTravelDate = props.startAndEndTravelDays?.to?.toLocaleDateString("pt-BR", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
 
   return(
     <div className="flex items-center justify-center bg-zinc-900 rounded-xl h-16 px-4 gap-3 shadow-shape">
@@ -36,11 +46,18 @@ export function DestinationAndDateStep(props: Readonly<DestinationAndDateType>){
             disabled={props.isGuestsInputOpen} 
             className="flex items-center gap-2 text-left">              
           <Calendar className="size-5 text-zinc-400"/>
-          <span
-                id="dateInput"
-                className="text-zinc-400 text-lg outline-none">
-                Quando?
-          </span>
+
+          {props.startAndEndTravelDays === undefined? (
+            <span
+                  id="dateInput"
+                  className="text-zinc-400 text-lg outline-none">
+                  Quando?
+            </span>
+              ) : (
+            <span className="text-zinc-400 text-lg outline-none">
+              {startTravelDate} até {endTravelDate}
+            </span>
+        )}
         </button>
 
         {props.isDateModalOpen && (
