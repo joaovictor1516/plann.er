@@ -12,10 +12,13 @@ export function ErrorPage(){
         <div className="">
             <h1 className="">Oops!!</h1>
 
-            <p>Desculpa, aconteceu erro</p>
-      <p>
-        <i>{error.statusText || error.message}</i>
-      </p>
+            {error.statusText.startsWith("4") && (
+                <span>Descupa, não encontramos a página</span>
+            )}
+
+            {error.statusText.startsWith("5") && (
+                <span>Desculpa, tivemos um error no nosso servidor</span>
+            )}
         </div>
     )
 }
