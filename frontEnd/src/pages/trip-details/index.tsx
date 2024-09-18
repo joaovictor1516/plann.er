@@ -58,36 +58,38 @@ export function TripDetailsPage(){
         .then((response) => {
             const activityElements: ActivityInformations[] = [];
 
-            response.data.activities.map((values: {date: string, activity: Activity[]}) => {
-                const activityDetails = values.activity;
+            if(response.data.activities){
+                response.data.activities.map((values: {date: string, activity: Activity[]}) => {
+                    const activityDetails = values.activity;
 
-                const activitiesOfTheDay: ActivityInformations = {
-                    activities: undefined,
+                    const activitiesOfTheDay: ActivityInformations = {
+                        activities: undefined,
 
-                    date: new Date(values.date).toLocaleDateString("pt-BR", {
-                            day: "numeric",
-                            month: "long"
-                        }),
+                        date: new Date(values.date).toLocaleDateString("pt-BR", {
+                                day: "numeric",
+                                month: "long"
+                            }),
+                        
+                        dateDayWeek: new Date(values.date).toLocaleDateString("pt-BR", {
+                                weekday: "long"
+                            })
+                    }
+                    const activity: Activity[] = [];
                     
-                    dateDayWeek: new Date(values.date).toLocaleDateString("pt-BR", {
-                            weekday: "long"
-                        })
-                }
-                const activity: Activity[] = [];
-                
-                if(activityDetails.length > 0){
+                    if(activityDetails.length > 0){
 
-                    for(const i in activityDetails){
-                        activityDetails[i].occurs_at = format((new Date(activityDetails[i].occurs_at)), "HH:mm");
-                        activity.push(activityDetails[i]);
+                        for(const i in activityDetails){
+                            activityDetails[i].occurs_at = format((new Date(activityDetails[i].occurs_at)), "HH:mm");
+                            activity.push(activityDetails[i]);
+                        }
+
+                        activitiesOfTheDay.activities = activity;
                     }
 
-                    activitiesOfTheDay.activities = activity;
-                }
-
-                activityElements.push(activitiesOfTheDay);
-                setActivityInformations(activityElements);
-            })
+                    activityElements.push(activitiesOfTheDay);
+                    setActivityInformations(activityElements);
+                })
+            }
         })
         .catch((error) => {
             console.error(error);
