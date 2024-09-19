@@ -1,10 +1,11 @@
-import { Plus, CircleCheck, CircleDashed, Trash } from "lucide-react";
-import { Button } from "../../components/button";
+import { Plus, CircleCheck, CircleDashed, Trash, Pencil, Check } from "lucide-react";
 import { ActivityInformations } from "../../lib/interfaces";
+import { Button } from "../../components/button";
 
 interface ActivityModalType{
     openCreatyActivityModal: () => void;
     deleteActivity: (activityId: string) => void;
+    updateActivity: (ActivityId: string) => void;
     completeActivity: (activityId: string) => void;
     activityInformations: ActivityInformations[];
 }
@@ -47,17 +48,20 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
 
                                             {activity.is_complited ? (
                                                 <Button colors="secundary" size="default">
-                                                Completar tarefa
+                                                    <Check className="size-5"/>
                                                 </Button>
                                             ) : (
                                                 <Button colors="primary" size="default" onClick={() => props.completeActivity(activity.id)}>
-                                                Completar tarefa
+                                                    <Check className="size-5"/>
                                                 </Button>
                                             )}
 
+                                            <Button colors="primary" size="default" onClick={() => props.updateActivity(activity.id)}>
+                                                <Pencil className="size-5"/>
+                                            </Button>
+
                                             <Button colors="primary" size="default" onClick={() => props.deleteActivity(activity.id)}>
                                                 <Trash className="size-5"/>
-                                                Deletar
                                             </Button>
                                         </div>
                                     )

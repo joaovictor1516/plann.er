@@ -143,6 +143,10 @@ export function TripDetailsPage(){
         })
     }
 
+    async function updateActivity(activityId: string){
+        await api.put(`/activities/${activityId}/update`)
+    }
+
     async function compleateActivity(activityId: string){
         await api.get(`/activities/${activityId}/complete`)
         .then((response) => {
@@ -245,6 +249,7 @@ export function TripDetailsPage(){
                     activityInformations={activityInformations}
                     completeActivity={compleateActivity}
                     deleteActivity={deleteActivity}
+                    updateActivity={updateActivity}
                 />
 
                 <div className="w-80 space-y-6">
