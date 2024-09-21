@@ -15,7 +15,7 @@ export function CreateActivityModal(props: Readonly<CreateAtivityType>){
                         <div className="space-y-2">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-zinc-50 text-lg font-semibold">
-                                    Cadastrar atividade
+                                    Criar atividade
                                 </h2>
                             
                                 <button>
