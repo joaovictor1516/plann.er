@@ -1,5 +1,5 @@
-import { X, Tag, Calendar } from "lucide-react";
 import { Button } from "../../components/button";
+import { X, Tag, Calendar } from "lucide-react";
 import { FormEvent } from "react";
 
 interface CreateAtivityType{
