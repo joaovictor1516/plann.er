@@ -4,7 +4,7 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { z } from "zod";
 
-export function getActivity(app: FastifyInstance){
+export async function getActivity(app: FastifyInstance){
     app.withTypeProvider<ZodTypeProvider>().get("/activities/:activityId", {
         schema:{
             params: z.object({
