@@ -52,7 +52,7 @@ export function UpdateActivityModal(props: UpdateActivityModal){
         <main className="">
             <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
                 <div className="flex flex-col items-center bg-zinc-950 w-[540px] rounded-xl text-zinc-400 px-6 py-5">
-                    <div className="flex items-center justify-between">
+                    <div className="w-full flex items-center justify-between">
                         <span className="">Atulização das atividades</span>
                         <Button colors="secundary" size="default" onClick={props.closeUpdateModal}>
                             <X className="size-5"/>
@@ -81,7 +81,7 @@ export function UpdateActivityModal(props: UpdateActivityModal){
                                 </div>
                             </div>
                         </div>
-                        <Button type="submit">
+                        <Button type="submit" color="primary" size="full">
                             Atualizar
                         </Button>
                     </form>
