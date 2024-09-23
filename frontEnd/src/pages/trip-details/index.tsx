@@ -11,6 +11,7 @@ import { LinkModal } from "./link-modal";
 import { api } from "../../lib/axios";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { UpdateActivityModal } from "./update-activity-modal";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -19,11 +20,15 @@ export function TripDetailsPage(){
 
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
 
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+
     const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
 
     const [invites, setInvites] = useState<Invite[]>([]);
 
     const [links, setLinks] = useState<Link[]>([]);
+
+    const [tackeActivityId, setTackeActivityId] = useState<string>("");
 
     const navigate = useNavigate();
 
@@ -51,6 +56,15 @@ export function TripDetailsPage(){
 
     function closeConfirmeInviteModal(){
         setIsConfirmeInvatedModalOpen(false);
+    }
+
+    function openUpdateActivityModal(activityId: string){
+        setTackeActivityId(activityId);
+        setIsUpdateModalOpen(true);
+    }
+
+    function closeUpdateActivityModal(){
+        setIsUpdateModalOpen(false);
     }
 
     async function tackeActivities(tripId: string){
@@ -143,10 +157,6 @@ export function TripDetailsPage(){
         })
     }
 
-    async function updateActivity(activityId: string){
-        await api.put(`/activities/${activityId}/update`)
-    }
-
     async function compleateActivity(activityId: string){
         await api.get(`/activities/${activityId}/complete`)
         .then((response) => {
@@ -225,6 +235,10 @@ export function TripDetailsPage(){
         })
     }
 
+    function changeDateTime(){
+        navigate("/");
+    }
+
     useEffect(() => {
         if(tripId){
             tackeActivities(tripId);
@@ -232,10 +246,6 @@ export function TripDetailsPage(){
             tackeLinks(tripId);
         }
     }, [tripId]);
-
-    function changeDateTime(){
-        navigate("/");
-    }
 
     return(
         <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
@@ -246,10 +256,10 @@ export function TripDetailsPage(){
             <main className="flex gap-16 px-4">
                 <ActivityModal 
                     openCreatyActivityModal={openCreatyActivityModal}
+                    openUpdateActivityModal={openUpdateActivityModal}
                     activityInformations={activityInformations}
                     completeActivity={compleateActivity}
                     deleteActivity={deleteActivity}
-                    updateActivity={updateActivity}
                 />
 
                 <div className="w-80 space-y-6">
@@ -286,6 +296,13 @@ export function TripDetailsPage(){
               <ConfirmInviteModal
                 closeConfirmeInviteModal={closeConfirmeInviteModal}
               />
+            )}
+
+            { isUpdateModalOpen && (
+                <UpdateActivityModal
+                    closeUpdateModal={closeUpdateActivityModal}
+                    activityId={tackeActivityId}
+                />
             )}
         </div>
     )

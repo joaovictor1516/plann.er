@@ -4,7 +4,7 @@ import { Button } from "../../components/button";
 
 interface ActivityModalType{
     openCreatyActivityModal: () => void;
-    openUpdateActivityModal: () => void;
+    openUpdateActivityModal: (activityId: string) => void;
     deleteActivity: (activityId: string) => void;
     completeActivity: (activityId: string) => void;
     activityInformations: ActivityInformations[];
@@ -54,7 +54,7 @@ export function ActivityModal(props: Readonly<ActivityModalType>){
                                                     </Button>
                                                 )}
 
-                                                <Button colors="primary" size="default" onClick={props.openUpdateActivityModal}>
+                                                <Button colors="primary" size="default" onClick={() => {props.openUpdateActivityModal(activity.id)}}>
                                                     <Pencil className="size-5"/>
                                                 </Button>
 
