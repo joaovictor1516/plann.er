@@ -1,7 +1,8 @@
 import { FormEvent, useState, useEffect } from "react";
+import { Activity, Trip } from "../../lib/interfaces";
 import { Button } from "../../components/button";
 import { Calendar, Tag, X } from "lucide-react";
-import { Activity } from "../../lib/interfaces";
+import { useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
 
 interface UpdateActivityModal{
@@ -9,8 +10,11 @@ interface UpdateActivityModal{
     activityId: string;
 }
 
-export function UpdateActivityModal(props: UpdateActivityModal){
+export function UpdateActivityModal(props: Readonly<UpdateActivityModal>){
+    const [tripDetails, setTripDetails] = useState<Trip>();
     const [activity, setActivity] = useState<Activity>();
+
+    const {tripId} = useParams();
 
     async function updateActivity(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
@@ -44,9 +48,25 @@ export function UpdateActivityModal(props: UpdateActivityModal){
         })
     }
 
+    async function tackeTripDetails(tripId: string){
+        try{
+            await api.get(`trips/${tripId}/details`)
+            .then((response) => {
+                setTripDetails(response.data.trip);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
+        tripId && tackeTripDetails(tripId);
         tackeActivity(props.activityId);
-    }, [props.activityId]);
+    }, [props.activityId, tripId]);
 
     return (
         <main className="">
@@ -73,11 +93,20 @@ export function UpdateActivityModal(props: UpdateActivityModal){
                             <div className="flex items-center gap-2 w-full">
                                 <div className="bg-zinc-950 flex flex-1 items-center h-14 py-4 px-2.5 gap-2.5 rounded-lg">
                                     <Calendar className="size-5 text-zinc-400"/>
-                                    <input type="datetime-local"
+                                    {tripDetails?.starts_at && tripDetails?.ends_at && activity?.occurs_at ? (
+                                        <input type="datetime-local"
+                                            name="occursAtInput"
+                                            id="occursAtInput"
+                                            className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
+                                            data-min={tripDetails.starts_at}
+                                            data-max={tripDetails.ends_at}
+                                            placeholder={activity.occurs_at.toString()}/>
+                                        ) : (
+                                        <input type="datetime-local"
                                         name="occursAtInput"
                                         id="occursAtInput"
-                                        className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"
-                                        placeholder={activity?.occurs_at.toString()}/>
+                                        className="bg-transparent placeholder-zinc-400 text-lg outline-none w-full text-zinc-100"/>
+                                    )}
                                 </div>
                             </div>
                         </div>
