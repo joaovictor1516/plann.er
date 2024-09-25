@@ -1,6 +1,6 @@
+import { Link2, Plus, Trash, Pencil } from "lucide-react";
 import { Button } from "../../components/button";
 import { Link } from "../../lib/interfaces";
-import { Link2, Plus } from "lucide-react";
 
 interface LinkModalType {
     openLinkRegistrationModal: () => void;
@@ -28,12 +28,18 @@ export function LinkModal(props: Readonly<LinkModalType>){
                                             {link.url}
                                         </a>
                                     </div>
+
+                                    <div className="flex flex-row gap-0.5">
+                                        <Button color="primary" size="default">
+                                            <Pencil className="size-5"/>
+                                        </Button>
+                                        <Button color="primary" size="default" onClick={() => {props.deleteLink(link.id)}}>
+                                            <Trash className="size-5"/>
+                                        </Button>
+                                    </div>
+                                    
                                     <Link2 className="size-5"/>
                                 </div>
-
-                                <Button color="primary" size="full" onClick={() => {props.deleteLink(link.id)}}>
-                                    deletar
-                                </Button>
                             </div>
                         )
                     }) : (
