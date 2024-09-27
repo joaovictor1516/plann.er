@@ -225,6 +225,10 @@ export function TripDetailsPage(){
         })
     }
 
+    async function editLink(linkId: string){
+        await api.put(`/links/${linkId}/update`)
+    }
+
     async function tackInvites(tripId: string){
         await api.get(`/trips/${tripId}/participants`)
         .then((response) => {
