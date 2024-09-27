@@ -73,7 +73,9 @@ export function UpdateActivityModal(props: Readonly<UpdateActivityModal>){
             <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
                 <div className="flex flex-col items-center bg-zinc-950 w-[540px] rounded-xl text-zinc-400 px-6 py-5">
                     <div className="w-full flex items-center justify-between">
-                        <span className="">Atulização das atividades</span>
+                        <h2 className="text-zinc-50 text-lg font-semibold">
+                            Atulização das atividades
+                        </h2>
                         <Button colors="secundary" size="default" onClick={props.closeUpdateModal}>
                             <X className="size-5"/>
                         </Button>
