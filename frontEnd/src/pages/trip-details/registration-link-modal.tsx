@@ -14,7 +14,7 @@ export function RegistrationLinkModal(props: Readonly<RegistrationLinkModalType>
                 <div className="flex flex-col justify-center w-full gap-2">
                     <div className="flex justify-between">
                         <h2 className="text-zinc-50 text-lg font-semibold">
-                        Cadastrar link
+                            Cadastrar link
                         </h2>
                         <Button size="default" color="secundary">
                             <X className="size-5" onClick={props.closeLinkRegistrationModal}/>
@@ -22,7 +22,7 @@ export function RegistrationLinkModal(props: Readonly<RegistrationLinkModalType>
                     </div>
 
                     <p className="text-left text-sm">
-                    Todos convidados podem visualizar os links importantes.
+                        Todos convidados podem visualizar os links importantes.
                     </p>
                 </div>
                 
