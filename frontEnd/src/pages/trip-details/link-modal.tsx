@@ -3,6 +3,7 @@ import { Button } from "../../components/button";
 import { Link } from "../../lib/interfaces";
 
 interface LinkModalType {
+    openUpdateLinkModal: (linkId: string) => void;
     openLinkRegistrationModal: () => void;
     deleteLink: (linkId: string) => void;
     links: Link[];
@@ -30,7 +31,7 @@ export function LinkModal(props: Readonly<LinkModalType>){
                                     </div>
 
                                     <div className="flex flex-row gap-0.5">
-                                        <Button color="primary" size="default">
+                                        <Button color="primary" size="default" onClick={() => {props.openUpdateLinkModal(link.id)}}>
                                             <Pencil className="size-5"/>
                                         </Button>
                                         <Button color="primary" size="default" onClick={() => {props.deleteLink(link.id)}}>
