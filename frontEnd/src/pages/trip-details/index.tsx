@@ -12,6 +12,7 @@ import { api } from "../../lib/axios";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { UpdateActivityModal } from "./update-activity-modal";
+import { UpdateLinkModal } from "./update-link-modal";
 
 export function TripDetailsPage(){
     const [isCreatyActivityModalOpen, setIsCreatyActivityModalOpen] = useState<boolean>(false);
@@ -20,7 +21,9 @@ export function TripDetailsPage(){
 
     const [isConfirmeInvatedModalOpen, setIsConfirmeInvatedModalOpen] = useState<boolean>(false);
 
-    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+    const [isUpdateActivityModalOpen, setIsUpdateActivityModalOpen] = useState<boolean>(false);
+
+    const [isUpdateLinkModalOpen, setIsUpdateLinkModalOpen] = useState<boolean>(false);
 
     const [activityInformations, setActivityInformations] = useState<ActivityInformations[]>([]);
 
@@ -29,6 +32,8 @@ export function TripDetailsPage(){
     const [links, setLinks] = useState<Link[]>([]);
 
     const [tackeActivityId, setTackeActivityId] = useState<string>("");
+
+    const [tackeLinkId, setTackeLinkId] = useState<string>("");
 
     const navigate = useNavigate();
 
@@ -60,11 +65,20 @@ export function TripDetailsPage(){
 
     function openUpdateActivityModal(activityId: string){
         setTackeActivityId(activityId);
-        setIsUpdateModalOpen(true);
+        setIsUpdateActivityModalOpen(true);
     }
 
     function closeUpdateActivityModal(){
-        setIsUpdateModalOpen(false);
+        setIsUpdateActivityModalOpen(false);
+    }
+
+    function openUpdateLinkModal(linkId: string){
+        setIsUpdateLinkModalOpen(true);
+        setTackeLinkId(linkId);
+    }
+
+    function closeUpdateLinkModal(){
+        setIsUpdateLinkModalOpen(false);
     }
 
     async function tackeActivities(tripId: string){
@@ -225,10 +239,6 @@ export function TripDetailsPage(){
         })
     }
 
-    async function editLink(linkId: string){
-        await api.put(`/links/${linkId}/update`)
-    }
-
     async function tackInvites(tripId: string){
         await api.get(`/trips/${tripId}/participants`)
         .then((response) => {
@@ -269,6 +279,7 @@ export function TripDetailsPage(){
                 <div className="w-80 space-y-6">
                     <LinkModal
                         openLinkRegistrationModal={openLinkRegistrationModal}
+                        openUpdateLinkModal={openUpdateLinkModal}
                         deleteLink={deleteLink}
                         links={links}
                     />
@@ -302,10 +313,17 @@ export function TripDetailsPage(){
               />
             )}
 
-            { isUpdateModalOpen && (
+            { isUpdateActivityModalOpen && (
                 <UpdateActivityModal
                     closeUpdateModal={closeUpdateActivityModal}
                     activityId={tackeActivityId}
+                />
+            )}
+
+            { isUpdateLinkModalOpen && (
+                <UpdateLinkModal
+                    closeUpdateModal={closeUpdateLinkModal}
+                    linkId={tackeLinkId}
                 />
             )}
         </div>
