@@ -16,9 +16,9 @@ export function RegistrationLinkModal(props: Readonly<RegistrationLinkModalType>
                         <h2 className="text-zinc-50 text-lg font-semibold">
                         Cadastrar link
                         </h2>
-                        <button>
+                        <Button size="default" color="secundary">
                             <X className="size-5" onClick={props.closeLinkRegistrationModal}/>
-                        </button>
+                        </Button>
                     </div>
 
                     <p className="text-left text-sm">
